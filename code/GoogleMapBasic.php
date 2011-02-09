@@ -9,14 +9,11 @@
 
 class GoogleMapBasic extends DataObjectDecorator {
 
-		public function extraStatics() {
+	public function extraStatics() {
 		return array (
 			'db' => array(
 				'ShowMap' => 'Boolean',
-				'Address' => 'Boolean'
-			),
-			'has_one' => array(
-				"Icon" => "Image"
+				'Address' => 'Text'
 			)
 		);
 	}
@@ -39,8 +36,10 @@ class GoogleMapBasic extends DataObjectDecorator {
 		static function get_exclude_from_classes() {return self::$exclude_from_classes;}
 
 	function updateCMSFields(FieldSet &$fields) {
-		$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map"));
-		$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
+		if($this->canHaveMap()) {
+			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map"));
+			$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
+		}
 	}
 
 	protected function canHaveMap() {
