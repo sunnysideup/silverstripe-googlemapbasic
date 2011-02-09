@@ -81,9 +81,9 @@ class GoogleMapBasic_Controller extends Extension {
 			Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 			Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key='.GoogleMapBasic::get_key());
 			Requirements::javascript($fileLocation);
-			Requirements::customScript("var GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
-			Requirements::customScript("var GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
-			Requirements::customScript("var GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
+			Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
+			Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
+			Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
 			Requirements::themedCSS('GoogleMapBasic');
 			return $this->owner->renderWith("GoogleMapBasic");
 		}
