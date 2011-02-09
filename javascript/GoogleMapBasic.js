@@ -19,8 +19,9 @@ function GoogleMapBasicInit() {
 					alert("address not found!!!");
 				}
 				else {
+					alert("adding point");
 					map.setCenter(point, 15);
-					var marker = createMarker(point, GoogleMapBasicInfoWindow);
+					var marker = createMarker(point, "hello");
 					map.addOverlay(marker);
 				}
 			}
