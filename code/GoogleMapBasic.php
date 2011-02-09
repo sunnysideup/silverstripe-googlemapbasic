@@ -13,7 +13,8 @@ class GoogleMapBasic extends DataObjectDecorator {
 		return array (
 			'db' => array(
 				'ShowMap' => 'Boolean',
-				'Address' => 'Text'
+				'Address' => 'Text',
+				'InfoWindowContent' => 'HTMLText'
 			)
 		);
 	}
@@ -39,6 +40,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 		if($this->canHaveMap()) {
 			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map"));
 			$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
+			$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
 		}
 	}
 
