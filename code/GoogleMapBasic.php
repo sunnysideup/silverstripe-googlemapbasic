@@ -42,7 +42,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
 			if($this->owner->ShowMap) {
 				$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
-				$fields->addFieldToTab("Root.Content.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close"));
+				$fields->addFieldToTab("Root.Content.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close)"));
 				$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
 			}
 		}
@@ -81,9 +81,9 @@ class GoogleMapBasic_Controller extends Extension {
 			Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 			Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key='.GoogleMapBasic::get_key());
 			Requirements::javascript($fileLocation);
-			Requirements::customScript("var GoogleMapBasic.SET_InfoWindow( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
-			Requirements::customScript("var GoogleMapBasic.SET_Address(\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
-			Requirements::customScript("var GoogleMapBasic.SET_ZoomLevel(\"".intval($this->owner->ZoomLevel)."\")", 'GoogleMapBasicAddress');
+			Requirements::customScript("var GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
+			Requirements::customScript("var GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
+			Requirements::customScript("var GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
 			Requirements::themedCSS('GoogleMapBasic');
 			return $this->owner->renderWith("GoogleMapBasic");
 		}
