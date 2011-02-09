@@ -14,6 +14,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 			'db' => array(
 				'ShowMap' => 'Boolean',
 				'Address' => 'Text',
+				'ZoomLevel' => 'Int',
 				'InfoWindowContent' => 'HTMLText'
 			)
 		);
@@ -41,6 +42,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
 			if($this->owner->ShowMap) {
 				$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
+				$fields->addFieldToTab("Root.Content.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close"));
 				$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
 			}
 		}
