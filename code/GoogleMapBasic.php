@@ -69,7 +69,7 @@ class GoogleMapBasic_Controller extends Extension {
 			if(!$fileLocation) {
 				$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
 			}
-			$infoWindow = $this->owner->renderWith("GoogleMapBasicInfoWindow");
+			$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>';
 			$infoWindow = str_replace("\r\n", " ", $infoWindow);
 			$infoWindow = str_replace("\n", " ", $infoWindow);
 			Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
