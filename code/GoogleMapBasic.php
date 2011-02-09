@@ -46,7 +46,11 @@ class GoogleMapBasic extends DataObjectDecorator {
 
 	protected function canHaveMap() {
 		$include = self::get_include_in_classes();
-		$excluded = self::get_exclude_from_classes();
+		$exclude = self::get_exclude_from_classes();
+		if(!is_array($exclude) || !is_array($include)) {
+			user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
+			return true;
+		}
 		if(!count($include) && !count($exclude)) {
 			return true;
 		}
