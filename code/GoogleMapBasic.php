@@ -70,7 +70,7 @@ class GoogleMapBasic_Controller extends Extension {
 			}
 			$infoWindow = $this->owner->renderWith("GoogleMapBasicInfoWindow");
 			$infoWindow = str_replace("\r\n", " ", $infoWindow);
-			$infoWindow str_replace("\n", " ", $infoWindow);
+			$infoWindow = str_replace("\n", " ", $infoWindow);
 			Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 			Requirements::customScript("var GoogleMapBasicInfoWindow = \"".Convert::raw2js($infoWindow)."\"", 'GoogleMapBasicInfoWindow');
 			Requirements::customScript("var GoogleMapBasicAddress = \"".Convert::raw2js($this->owner->Address)."\"", 'GoogleMapBasicAddress');
