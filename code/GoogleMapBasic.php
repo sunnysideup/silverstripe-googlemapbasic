@@ -38,9 +38,11 @@ class GoogleMapBasic extends DataObjectDecorator {
 
 	function updateCMSFields(FieldSet &$fields) {
 		if($this->canHaveMap()) {
-			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map"));
-			$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
-			$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
+			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
+			if($this->owner->ShowMap) {
+				$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
+				$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
+			}
 		}
 	}
 
@@ -79,7 +81,7 @@ class GoogleMapBasic_Controller extends Extension {
 			Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 			Requirements::customScript("var GoogleMapBasicInfoWindow = \"".Convert::raw2js($infoWindow)."\"", 'GoogleMapBasicInfoWindow');
 			Requirements::customScript("var GoogleMapBasicAddress = \"".Convert::raw2js($this->owner->Address)."\"", 'GoogleMapBasicAddress');
-			Requirements::javascript('http://maps.google.com/maps?file=api&v=2&key='.GoogleMapBasic::get_key());
+			Requirements::javascript('http://maps.google.com/maps?file=api&v=2&sensor=false&key='.GoogleMapBasic::get_key());
 			Requirements::javascript($fileLocation);
 			Requirements::themedCSS('GoogleMapBasic');
 			return $this->owner->renderWith("GoogleMapBasic");

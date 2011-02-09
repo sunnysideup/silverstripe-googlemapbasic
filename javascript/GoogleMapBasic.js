@@ -38,9 +38,16 @@ function GoogleMapBasicInit() {
 			}
 		);
 		function createMarker(point) {
+			/* ICON ...
 			var myIcon = new GIcon(); //can add baseIcon here new GIcon(baseIcon);
 			markerOptions = { icon:myIcon};
 			var marker = new GMarker(point, markerOptions);
+			*/
+			/* NO ICON */
+      GEvent.addListener(marker, "click", function() {
+        marker.openInfoWindowHtml(GoogleMapBasicInfoWindow);
+      });
+      map.addOverlay(marker);
 			GEvent.addListener(marker, "click", function() {
 				marker.openInfoWindowHtml(GoogleMapBasicInfoWindow);
 			});
