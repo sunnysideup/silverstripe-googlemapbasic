@@ -31,23 +31,19 @@ function GoogleMapBasicInit() {
 				}
 				else {
 					map.setCenter(point, 15);
-					marker = createMarker(point);
+					/* ICON ...
+					var myIcon = new GIcon(); //can add baseIcon here new GIcon(baseIcon);
+					markerOptions = { icon:myIcon};
+					var marker = new GMarker(point, markerOptions);
+					*/
+					/* NO ICON */
+					GEvent.addListener(marker, "click", function() {
+						marker.openInfoWindowHtml(point, GoogleMapBasicInfoWindow);
+					});
 					map.addOverlay(marker);
 				}
 			}
 		);
-		function createMarker(point) {
-			/* ICON ...
-			var myIcon = new GIcon(); //can add baseIcon here new GIcon(baseIcon);
-			markerOptions = { icon:myIcon};
-			var marker = new GMarker(point, markerOptions);
-			*/
-			/* NO ICON */
-      GEvent.addListener(marker, "click", function() {
-        marker.openInfoWindowHtml(GoogleMapBasicInfoWindow);
-      });
-			return marker;
-		}
 	}
 }
 jQuery(document).ready(
