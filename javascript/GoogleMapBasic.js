@@ -13,13 +13,13 @@ jQuery(window).unload(function() {GUnload();});
 var GoogleMapBasic = {
 
 	zoomLevel: 14,
-		SET_ZoomLevel: function(v) {this.zoomLevel = v;}
+		SET_ZoomLevel: function(v) {this.zoomLevel = v;},
 
 	infoWindow: "I live here",
-		SET_InfoWindow: function(v) {this.infoWindow = v;}
+		SET_InfoWindow: function(v) {this.infoWindow = v;},
 
 	address: "The Beehive, Wellington, New Zealand",
-		SET_Address: function(v) {this.address = v;}
+		SET_Address: function(v) {this.address = v;},
 
 	map: null,
 
