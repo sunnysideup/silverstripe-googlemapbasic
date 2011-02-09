@@ -33,7 +33,6 @@ function GoogleMapBasicInit() {
 					map.setCenter(point, 15);
 					marker = createMarker(point);
 					map.addOverlay(marker);
-					marker.openInfoWindowHtml(GoogleMapBasicInfoWindow);
 				}
 			}
 		);
@@ -47,10 +46,6 @@ function GoogleMapBasicInit() {
       GEvent.addListener(marker, "click", function() {
         marker.openInfoWindowHtml(GoogleMapBasicInfoWindow);
       });
-      map.addOverlay(marker);
-			GEvent.addListener(marker, "click", function() {
-				marker.openInfoWindowHtml(GoogleMapBasicInfoWindow);
-			});
 			return marker;
 		}
 	}
