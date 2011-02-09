@@ -78,16 +78,23 @@ class GoogleMapBasic_Controller extends Extension {
 				$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
 			}
 			$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>';
-			$infoWindow = str_replace("\r\n", " ", $infoWindow);
-			$infoWindow = str_replace("\n", " ", $infoWindow);
 			Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
-			Requirements::customScript("var GoogleMapBasicInfoWindow = \"".Convert::raw2js($infoWindow)."\"", 'GoogleMapBasicInfoWindow');
-			Requirements::customScript("var GoogleMapBasicAddress = \"".Convert::raw2js($this->owner->Address)."\"", 'GoogleMapBasicAddress');
 			Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key='.GoogleMapBasic::get_key());
 			Requirements::javascript($fileLocation);
+			Requirements::customScript("var GoogleMapBasic.SET_InfoWindow( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
+			Requirements::customScript("var GoogleMapBasic.SET_Address(\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
+			Requirements::customScript("var GoogleMapBasic.SET_ZoomLevel(\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
 			Requirements::themedCSS('GoogleMapBasic');
 			return $this->owner->renderWith("GoogleMapBasic");
 		}
+	}
+
+	function cleanJS($s) {
+		$s = Convert::raw2js($s);
+		$s = str_replace("\r\n", " ", $s);
+		$s = str_replace("\n", " ", $s);
+		$s = str_replace('/', '\/', $s);
+		return $s;
 	}
 
 }
