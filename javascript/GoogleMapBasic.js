@@ -50,7 +50,7 @@ var GoogleMapBasic = {
 			marker.openInfoWindowHtml(html);
 		});
 		GoogleMapBasic.map.addOverlay(marker);
-		marker.click();
+		marker.openInfoWindowHtml(html);
 		return marker;
 	}
 }
