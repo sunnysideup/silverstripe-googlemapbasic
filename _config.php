@@ -11,12 +11,12 @@
 //MUST SET
 //Object::add_extension('SiteTree', 'GoogleMapBasic');
 //Object::add_extension('ContentController', 'GoogleMapBasic_Controller');
-//GoogleMapBasic::set_key("abcdef");
+//GoogleMapBasic::set_key("abcdef"); //see http://code.google.com/apis/maps/signup.html
 
 //MAY SET
-//GoogleMapBasic::set_js_location("mysite/javascript/MyMap.js");
-//GoogleMapBasic::set_exclude_from_classes(array("HomePage"));
-//GoogleMapBasic::set_include_in_classes(array("ContactUsPage"));
+//GoogleMapBasic::set_js_location("mysite/javascript/MyMap.js"); //customise JS
+//GoogleMapBasic::set_exclude_from_classes(array("HomePage"));  // add relevant page classes
+//GoogleMapBasic::set_include_in_classes(array("ContactUsPage"));  //add relevant page classes
 //===================---------------- END googlemapbasic MODULE ----------------===================
 
 
