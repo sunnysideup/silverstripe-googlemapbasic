@@ -71,19 +71,15 @@ class GoogleMapBasic extends DataObjectDecorator {
 
 class GoogleMapBasic_Controller extends Extension {
 	
-	static function add_requirements() {
-		$fileLocation = GoogleMapBasic::get_js_location();
-		if(! $fileLocation) {
-			$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
-		}
-		Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-		Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=' . GoogleMapBasic::get_key());
-		Requirements::javascript($fileLocation);
-	}
-	
 	function GoogleMapBasic() {
 		if($this->owner->ShowMap && $this->owner->Address) {
-			self::add_requirements();
+			$fileLocation = GoogleMapBasic::get_js_location();
+			if(! $fileLocation) {
+				$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
+			}
+			Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
+			Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=' . GoogleMapBasic::get_key());
+			Requirements::javascript($fileLocation);
 			$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>';
 			Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
 			Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
