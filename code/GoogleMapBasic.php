@@ -80,7 +80,7 @@ class GoogleMapBasic_Controller extends Extension {
 			Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
 			Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=' . GoogleMapBasic::get_key());
 			Requirements::javascript($fileLocation);
-			$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>';
+			$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>'.$this->GoogleMapBasicExternalLinkHTML();
 			Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
 			Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
 			Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
@@ -90,9 +90,11 @@ class GoogleMapBasic_Controller extends Extension {
 		return false;
 	}
 
-	function GoogleMapBasicExternalLink () {
+	function GoogleMapBasicExternalLinkHTML () {
 		if($this->owner->ShowMap && $this->owner->Address) {
-			return 'http://maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
+			$link = 'http://maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
+			return '<p id="GoogleMapBasicExternalLink"><a href="'.$link.'">go to full map</a></p>';
+
 		}
 	}
 
