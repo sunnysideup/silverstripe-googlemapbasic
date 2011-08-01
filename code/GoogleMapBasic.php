@@ -90,6 +90,12 @@ class GoogleMapBasic_Controller extends Extension {
 		return false;
 	}
 
+	function GoogleMapBasicExternalLink () {
+		if($this->owner->ShowMap && $this->owner->Address) {
+			return 'http://maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
+		}
+	}
+
 	function cleanJS($s) {
 		$s = Convert::raw2js($s);
 		$s = str_replace("\r\n", " ", $s);
