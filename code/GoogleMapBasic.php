@@ -85,8 +85,9 @@ class GoogleMapBasic_Controller extends Extension {
 			Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
 			Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
 			Requirements::themedCSS('GoogleMapBasic');
-			return $this->owner->renderWith("GoogleMapBasic");
+			return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
 		}
+		return false;
 	}
 
 	function cleanJS($s) {

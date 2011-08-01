@@ -1,1 +1,1 @@
-<div id="GoogleMapBasic"></div>
+<div id="GoogleMapBasic">$GoogleMapBasic</div>
