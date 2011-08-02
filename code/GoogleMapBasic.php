@@ -93,7 +93,7 @@ class GoogleMapBasic_Controller extends Extension {
 	function GoogleMapBasicExternalLinkHTML () {
 		if($this->owner->ShowMap && $this->owner->Address) {
 			$link = 'http://maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
-			return '<p id="GoogleMapBasicExternalLink"><a href="'.$link.'">go to full map</a></p>';
+			return '<p id="GoogleMapBasicExternalLink"><a href="'.$link.'" target="_map">'._t("GoogleMapBasic.GOTOFULLMAP", "go to full map").'</a></p>';
 
 		}
 	}
