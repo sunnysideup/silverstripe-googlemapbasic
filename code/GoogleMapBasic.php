@@ -13,6 +13,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 		return array (
 			'db' => array(
 				'ShowMap' => 'Boolean',
+				'StaticMap' => 'Boolean',
 				'Address' => 'Text',
 				'ZoomLevel' => 'Int',
 				'InfoWindowContent' => 'HTMLText'
@@ -41,6 +42,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 		if($this->canHaveMap()) {
 			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
 			if($this->owner->ShowMap) {
+				$fields->addFieldToTab("Root.Content.Map", new CheckboxField("StaticMap", "Show map as picture only"));
 				$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
 				$fields->addFieldToTab("Root.Content.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close)"));
 				$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
@@ -73,28 +75,48 @@ class GoogleMapBasic_Controller extends Extension {
 	
 	function GoogleMapBasic() {
 		if($this->owner->ShowMap && $this->owner->Address) {
-			$fileLocation = GoogleMapBasic::get_js_location();
-			if(! $fileLocation) {
-				$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
+			if($this->owner->StaticMap) {
+				return true;
 			}
-			Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-			Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=' . GoogleMapBasic::get_key());
-			Requirements::javascript($fileLocation);
-			$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>'.$this->GoogleMapBasicExternalLinkHTML();
-			Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
-			Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
-			Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
-			Requirements::themedCSS('GoogleMapBasic');
-			return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
+			else {
+				$fileLocation = GoogleMapBasic::get_js_location();
+				if(! $fileLocation) {
+					$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
+				}
+				Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
+				Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=' . GoogleMapBasic::get_key());
+				Requirements::javascript($fileLocation);
+				$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>'.$this->GoogleMapBasicExternalLinkHTML();
+				Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
+				Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
+				Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
+				Requirements::themedCSS('GoogleMapBasic');
+				return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
+			}
 		}
 		return false;
 	}
 
+	function GoogleMapBasicStaticMapSource($width = 512, $height = 512) {
+		$src = 'http://maps.googleapis.com/maps/api/staticmap?';
+		$src .= 'center='.urlencode($this->owner->Address);
+		$src .= '&zoom='.$this->owner->ZoomLevel;
+		$src .= '&size='.$width.'x'.$height.'';
+		$src .= '&maptype=roadmap';
+		$src .= '&markers=color:red%7C'.urlencode(urlencode($this->owner->Address));
+		$src .= '&sensor=false';
+		return $src;
+	}
+
+	function GoogleMapBasicExternalLink () {
+		if($this->owner->ShowMap && $this->owner->Address) {
+			return $link = 'http://maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
+		}
+	}
+
 	function GoogleMapBasicExternalLinkHTML () {
 		if($this->owner->ShowMap && $this->owner->Address) {
-			$link = 'http://maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
-			return '<p id="GoogleMapBasicExternalLink"><a href="'.$link.'" target="_map">'._t("GoogleMapBasic.GOTOFULLMAP", "go to full map").'</a></p>';
-
+			return '<p id="GoogleMapBasicExternalLink"><a href="'.$this->GoogleMapBasicExternalLink().'" target="_map">'._t("GoogleMapBasic.OPENINGOOGLEMAPS", "open in Google Maps").'</a></p>';
 		}
 	}
 
@@ -105,5 +127,7 @@ class GoogleMapBasic_Controller extends Extension {
 		$s = str_replace('/', '\/', $s);
 		return $s;
 	}
+
+
 
 }
