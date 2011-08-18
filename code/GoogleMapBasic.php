@@ -100,11 +100,11 @@ class GoogleMapBasic_Controller extends Extension {
 	function GoogleMapBasicStaticMapSource($width = 512, $height = 512) {
 		$src = 'http://maps.googleapis.com/maps/api/staticmap?';
 		$src .= 'center='.urlencode($this->owner->Address);
-		$src .= '&zoom='.$this->owner->ZoomLevel;
-		$src .= '&size='.$width.'x'.$height.'';
-		$src .= '&maptype=roadmap';
-		$src .= '&markers=color:red%7C'.urlencode(urlencode($this->owner->Address));
-		$src .= '&sensor=false';
+		$src .= '&amp;zoom='.$this->owner->ZoomLevel;
+		$src .= '&amp;size='.$width.'x'.$height.'';
+		$src .= '&amp;maptype=roadmap';
+		$src .= '&amp;markers=color:red%7C'.urlencode(urlencode($this->owner->Address));
+		$src .= '&amp;sensor=false';
 		return $src;
 	}
 
