@@ -22,12 +22,13 @@ class GoogleMapBasic extends DataObjectDecorator {
 	}
 
 
-	protected static $key = '';
-		static function set_key($v) {self::$key = $v;}
-		static function get_key() {return self::$key;}
+	protected static $key_lookup = array();
+		static function set_key($s, $url = 0) {self::$key_lookup[$url] = $s;}
+		static function get_key($url = 0) {return self::$key_lookup[$url];}
+		static function add_key($key, $url) {self::$key_lookup[$url] = $key;}
 
 	protected static $js_location = '';
-		static function set_js_location($v) {self::$js_location = $v;}
+		static function set_js_location($s) {self::$js_location = $s;}
 		static function get_js_location() {return self::$js_location;}
 
 	protected static $include_in_classes = array();
@@ -84,7 +85,11 @@ class GoogleMapBasic_Controller extends Extension {
 					$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
 				}
 				Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-				Requirements::javascript('http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=' . GoogleMapBasic::get_key());
+				Requirements::javascript(
+					'http://maps.google.com/maps?file=api'.
+					'&amp;v=2'.
+					'&amp;sensor=false'.
+					'&amp;key=' . GoogleMapBasic::get_key(Director::protocolAndHost()));
 				Requirements::javascript($fileLocation);
 				$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>'.$this->GoogleMapBasicExternalLinkHTML();
 				Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
