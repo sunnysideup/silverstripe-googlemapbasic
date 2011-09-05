@@ -24,7 +24,16 @@ class GoogleMapBasic extends DataObjectDecorator {
 
 	protected static $key_lookup = array();
 		static function set_key($s, $url = 0) {self::$key_lookup[$url] = $s;}
-		static function get_key($url = 0) {return self::$key_lookup[$url];}
+		static function get_key($url = 0) {
+			if(!isset(self::$key_lookup[$url])) {
+
+				user_error("No Google Map API key set for &quot;".$url."&quot;, existing ones are: ".implode(", ", array_flip(self::$key_lookup)), E_USER_NOTICE);
+				if(count(self::$key_lookup)) {
+					return array_pop(self::$key_lookup);
+				}
+			}
+			return self::$key_lookup[$url];
+		}
 		static function add_key($key, $url) {self::$key_lookup[$url] = $key;}
 
 	protected static $js_location = '';
@@ -73,7 +82,7 @@ class GoogleMapBasic extends DataObjectDecorator {
 }
 
 class GoogleMapBasic_Controller extends Extension {
-	
+
 	function GoogleMapBasic() {
 		if($this->owner->ShowMap && $this->owner->Address) {
 			if($this->owner->StaticMap) {
