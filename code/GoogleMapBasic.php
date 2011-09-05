@@ -100,7 +100,7 @@ class GoogleMapBasic_Controller extends Extension {
 					'&amp;sensor=false'.
 					'&amp;key=' . GoogleMapBasic::get_key(Director::protocolAndHost()));
 				Requirements::javascript($fileLocation);
-				$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.'</div>'.$this->GoogleMapBasicExternalLinkHTML();
+				$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
 				Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
 				Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
 				Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
