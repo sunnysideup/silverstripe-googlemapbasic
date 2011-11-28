@@ -98,9 +98,10 @@ class GoogleMapBasic_Controller extends Extension {
 				Requirements::javascript($fileLocation);
 				$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
 				Requirements::customScript("
-					GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\");
-					GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\");
-					GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).");"
+					GoogleMapBasic.SET_infoWindowContent(\"".$this->cleanJS($infoWindow)."\");
+					GoogleMapBasic.SET_title(\"".$this->cleanJS($this->owner->Title)."\");
+					GoogleMapBasic.SET_address(\"".$this->cleanJS($this->owner->Address)."\");
+					GoogleMapBasic.SET_zoomLevel(".intval($this->owner->ZoomLevel).");"
 					, 'GoogleMapBasicData'
 				);
 				Requirements::themedCSS('GoogleMapBasic');

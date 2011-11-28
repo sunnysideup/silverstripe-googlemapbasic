@@ -7,65 +7,64 @@ jQuery(document).ready(
 		GoogleMapBasic.init();
 	}
 );
-jQuery(window).unload(function() {GUnload();});
 
 var GoogleMapBasic = {
 
 	zoomLevel: 14,
-		SET_ZoomLevel: function(v) {this.zoomLevel = v;},
+		SET_zoomLevel: function(v) {GoogleMapBasic.zoomLevel = v;},
 
-	infoWindow: "I live here",
-		SET_InfoWindow: function(v) {this.infoWindow = v;},
+	infoWindowContent: "I live here",
+		SET_infoWindowContent: function(v) {GoogleMapBasic.infoWindowContent = v;},
 
 	address: "The Beehive, Wellington, New Zealand",
-		SET_Address: function(v) {this.address = v;},
+		SET_address: function(v) {GoogleMapBasic.address = v;},
+
+	title: "Click me",
+		SET_title: function(v) {GoogleMapBasic.title = v;},
 
 	map: null,
+	options: null,
+	marker: null,
+	marker: null,
+	infoWindowObject: null,
+	options: null,
+	location: null,
 
 	init: function() {
-		if (GBrowserIsCompatible()) {
-			GoogleMapBasic.map = new GMap2(document.getElementById("GoogleMapBasic"));
-			GoogleMapBasic.map.setUIToDefault();
-			//get address
-	},
-
-	createMarker: function (point,html) {
-		var marker = new GMarker(point);
-		GEvent.addListener(marker, "click", function() {
-			marker.openInfoWindowHtml(html);
-		});
-		GoogleMapBasic.map.addOverlay(marker);
-		marker.openInfoWindowHtml(html);
-		return marker;
-	}
-
-	getAddress: function(){
-		geocoder = new GClientGeocoder();
-		geocoder.getLatLng(
-			GoogleMapBasic.address,
-			function(point){
-				if(!point){
-					alert("address "+GoogleMapBasic.address+" not found!!!");
+		var geocoder;
+		var results;
+		geocoder = new google.maps.Geocoder();
+		geocoder.geocode(
+			{'address': GoogleMapBasic.address},
+			function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					GoogleMapBasic.location = results[0].geometry.location
+					//we have to do this now after the address is found!
+					GoogleMapBasic.createMap();
 				}
 				else {
-					GoogleMapBasic.map.setCenter(point, GoogleMapBasic.zoomLevel);
-					GoogleMapBasic.createMarker(point, GoogleMapBasic.infoWindow);
+					alert("Geocode was not successful for the following reason: " + status);
 				}
 			}
 		);
-
 	},
+	createMap: function(){
+		GoogleMapBasic.options = {
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			zoom: GoogleMapBasic.zoomLevel,
+			center: GoogleMapBasic.location
+		};
+		GoogleMapBasic.map = new google.maps.Map(document.getElementById('GoogleMapBasic'), GoogleMapBasic.options);
+		GoogleMapBasic.marker = new google.maps.Marker({
+			map: GoogleMapBasic.map,
+			position: GoogleMapBasic.location,
+			title: GoogleMapBasic.title
+		});
+		GoogleMapBasic.infoWindowObject = new google.maps.InfoWindow({content: GoogleMapBasic.infoWindowContent});
+		google.maps.event.addListener(GoogleMapBasic.marker, 'click', function() {GoogleMapBasic.infoWindowObject.open(GoogleMapBasic.map,GoogleMapBasic.marker);});
+	}
 
-	createMap: function ():
-			var myOptions = {
-				zoom: 8,
-				center: new google.maps.LatLng(-34.397, 150.644),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			this.map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-		}
-		google.maps.event.addDomListener(window, 'load', initialize);
-	},
+
 
 
 }

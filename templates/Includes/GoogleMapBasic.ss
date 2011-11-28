@@ -1,6 +1,6 @@
 <% if GoogleMapBasic %>
 	<div id="GoogleMapBasic">
-	<% if StaticMap %>
+		<% if StaticMap %>
 		<a href="$GoogleMapBasicExternalLink">
 			<img src="$GoogleMapBasicStaticMapSource(300,400)" alt="$Address.ATT" width="300" height="400" />
 		</a>
