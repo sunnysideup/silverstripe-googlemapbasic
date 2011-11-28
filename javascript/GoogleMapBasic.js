@@ -1,6 +1,5 @@
 /*
 THANK YOU Marcel Nogueira d' Eurydice FOR THE INSPIRATION!
-TO DECLARE USING Requirements::customScript IN PHP
 */
 
 jQuery(document).ready(
@@ -28,20 +27,6 @@ var GoogleMapBasic = {
 			GoogleMapBasic.map = new GMap2(document.getElementById("GoogleMapBasic"));
 			GoogleMapBasic.map.setUIToDefault();
 			//get address
-			geocoder = new GClientGeocoder();
-			geocoder.getLatLng(
-				GoogleMapBasic.address,
-				function(point){
-					if(!point){
-						alert("address "+GoogleMapBasic.address+" not found!!!");
-					}
-					else {
-						GoogleMapBasic.map.setCenter(point, GoogleMapBasic.zoomLevel);
-						GoogleMapBasic.createMarker(point, GoogleMapBasic.infoWindow);
-					}
-				}
-			);
-		}
 	},
 
 	createMarker: function (point,html) {
@@ -53,5 +38,35 @@ var GoogleMapBasic = {
 		marker.openInfoWindowHtml(html);
 		return marker;
 	}
+
+	getAddress: function(){
+		geocoder = new GClientGeocoder();
+		geocoder.getLatLng(
+			GoogleMapBasic.address,
+			function(point){
+				if(!point){
+					alert("address "+GoogleMapBasic.address+" not found!!!");
+				}
+				else {
+					GoogleMapBasic.map.setCenter(point, GoogleMapBasic.zoomLevel);
+					GoogleMapBasic.createMarker(point, GoogleMapBasic.infoWindow);
+				}
+			}
+		);
+
+	},
+
+	createMap: function ():
+			var myOptions = {
+				zoom: 8,
+				center: new google.maps.LatLng(-34.397, 150.644),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			this.map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	},
+
+
 }
 

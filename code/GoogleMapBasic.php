@@ -94,16 +94,15 @@ class GoogleMapBasic_Controller extends Extension {
 					$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
 				}
 				Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-				Requirements::javascript(
-					'http://maps.google.com/maps?file=api'.
-					'&amp;v=2'.
-					'&amp;sensor=false'.
-					'&amp;key=' . GoogleMapBasic::get_key(Director::protocolAndHost()));
+				Requirements::javascript('http://maps.googleapis.com/maps/api/js?sensor=false');
 				Requirements::javascript($fileLocation);
 				$infoWindow = '<div id="InfoWindowContent">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
-				Requirements::customScript("GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\")", 'GoogleMapBasicInfoWindow');
-				Requirements::customScript("GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\")", 'GoogleMapBasicAddress');
-				Requirements::customScript("GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).")", 'GoogleMapBasicZoomLevel');
+				Requirements::customScript("
+					GoogleMapBasic.infoWindow = ( \"".$this->cleanJS($infoWindow)."\");
+					GoogleMapBasic.address = (\"".$this->cleanJS($this->owner->Address)."\");
+					GoogleMapBasic.zoomLevel = (".intval($this->owner->ZoomLevel).");"
+					, 'GoogleMapBasicData'
+				);
 				Requirements::themedCSS('GoogleMapBasic');
 				return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
 			}
