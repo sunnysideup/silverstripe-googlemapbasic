@@ -62,6 +62,7 @@ var GoogleMapBasic = {
 		});
 		GoogleMapBasic.infoWindowObject = new google.maps.InfoWindow({content: GoogleMapBasic.infoWindowContent});
 		google.maps.event.addListener(GoogleMapBasic.marker, 'click', function() {GoogleMapBasic.infoWindowObject.open(GoogleMapBasic.map,GoogleMapBasic.marker);});
+		google.maps.event.trigger(GoogleMapBasic.marker, "click");
 	}
 
 
