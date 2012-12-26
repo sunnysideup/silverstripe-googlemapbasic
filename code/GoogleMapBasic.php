@@ -100,7 +100,7 @@ class GoogleMapBasic_Controller extends Extension {
 					GoogleMapBasic.SET_zoomLevel(".intval($this->owner->ZoomLevel).");"
 					, 'GoogleMapBasicData'
 				);
-				Requirements::themedCSS('GoogleMapBasic');
+				Requirements::themedCSS('GoogleMapBasic', "googlemapbasic");
 				return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
 			}
 		}
