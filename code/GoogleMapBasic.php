@@ -7,20 +7,15 @@
  **/
 
 
-class GoogleMapBasic extends DataObjectDecorator {
+class GoogleMapBasic extends SiteTreeExtension {
 
-	public function extraStatics() {
-		return array (
-			'db' => array(
-				'ShowMap' => 'Boolean',
-				'StaticMap' => 'Boolean',
-				'Address' => 'Text',
-				'ZoomLevel' => 'Int',
-				'InfoWindowContent' => 'HTMLText'
-			)
-		);
-	}
-
+	static $db = array(
+		'ShowMap' => 'Boolean',
+		'StaticMap' => 'Boolean',
+		'Address' => 'Text',
+		'ZoomLevel' => 'Int',
+		'InfoWindowContent' => 'HTMLText'
+	);
 
 	protected static $key_lookup = array();
 		static function set_key($s, $url = 0) {self::$key_lookup[$url] = $s;}
@@ -48,14 +43,15 @@ class GoogleMapBasic extends DataObjectDecorator {
 		static function set_exclude_from_classes($a) {self::$exclude_from_classes = $a;}
 		static function get_exclude_from_classes() {return self::$exclude_from_classes;}
 
-	function updateCMSFields(FieldSet &$fields) {
+	function updateCMSFields(FieldList $fields) {
 		if($this->canHaveMap()) {
-			$fields->addFieldToTab("Root.Content.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
+			$fields->addFieldToTab("Root.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
 			if($this->owner->ShowMap) {
-				$fields->addFieldToTab("Root.Content.Map", new CheckboxField("StaticMap", "Show map as picture only"));
-				$fields->addFieldToTab("Root.Content.Map", new TextField("Address"));
-				$fields->addFieldToTab("Root.Content.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close)"));
-				$fields->addFieldToTab("Root.Content.Map", new HtmlEditorField("InfoWindowContent", "Info Window Content", 5));
+				$fields->addFieldToTab("Root.Map", new CheckboxField("StaticMap", "Show map as picture only"));
+				$fields->addFieldToTab("Root.Map", new TextField("Address"));
+				$fields->addFieldToTab("Root.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close)"));
+				$fields->addFieldToTab("Root.Map", $htmlEditorField = new HtmlEditorField("InfoWindowContent", "Info Window Content"));
+				$htmlEditorField->setRows(5);
 			}
 		}
 	}
