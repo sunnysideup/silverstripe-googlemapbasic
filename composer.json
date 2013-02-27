@@ -1,5 +1,5 @@
 {
-	"name": "silverstripe/googlemapbasic",
+	"name": "sunnysideup/googlemapbasic",
 	"type": "silverstripe-module",
 	"description": "add a basic google map to your Silverstripe pages",
 	"homepage": "http://www.silverstripe-webdevelopment.com",
