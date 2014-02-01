@@ -1,0 +1,6 @@
+GoogleMapBasic:
+  js_location: "mysite/javascript/MyMap.js"
+  exclude_from_classes:
+    - HomePage
+  include_in_classes:
+    - ContactUsPage
