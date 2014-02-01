@@ -9,7 +9,7 @@
 
 class GoogleMapBasic extends SiteTreeExtension {
 
-	static $db = array(
+	private static $db = array(
 		'ShowMap' => 'Boolean',
 		'StaticMap' => 'Boolean',
 		'Address' => 'Text',
@@ -17,31 +17,11 @@ class GoogleMapBasic extends SiteTreeExtension {
 		'InfoWindowContent' => 'HTMLText'
 	);
 
-	protected static $key_lookup = array();
-		static function set_key($s, $url = 0) {self::$key_lookup[$url] = $s;}
-		static function get_key($url = 0) {
-			if(!isset(self::$key_lookup[$url])) {
+	private static $js_location = '';
 
-				user_error("No Google Map API key set for &quot;".$url."&quot;, existing ones are: ".implode(", ", array_flip(self::$key_lookup)), E_USER_NOTICE);
-				if(count(self::$key_lookup)) {
-					return array_pop(self::$key_lookup);
-				}
-			}
-			return self::$key_lookup[$url];
-		}
-		static function add_key($key, $url) {self::$key_lookup[$url] = $key;}
+	private static $include_in_classes = array();
 
-	protected static $js_location = '';
-		static function set_js_location($s) {self::$js_location = $s;}
-		static function get_js_location() {return self::$js_location;}
-
-	protected static $include_in_classes = array();
-		static function set_include_in_classes($a) {self::$include_in_classes = $a;}
-		static function get_include_in_classes() {return self::$include_in_classes;}
-
-	protected static $exclude_from_classes = array();
-		static function set_exclude_from_classes($a) {self::$exclude_from_classes = $a;}
-		static function get_exclude_from_classes() {return self::$exclude_from_classes;}
+	private static $exclude_from_classes = array();
 
 	function updateCMSFields(FieldList $fields) {
 		if($this->canHaveMap()) {
@@ -57,8 +37,8 @@ class GoogleMapBasic extends SiteTreeExtension {
 	}
 
 	protected function canHaveMap() {
-		$include = self::get_include_in_classes();
-		$exclude = self::get_exclude_from_classes();
+		$include = $this->owner->Config()->get("include_in_classes");
+		$exclude = $this->owner->Config()->get("exclude_from_classes");
 		if(!is_array($exclude) || !is_array($include)) {
 			user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
 			return true;
@@ -85,7 +65,7 @@ class GoogleMapBasic_Controller extends Extension {
 				return true;
 			}
 			else {
-				$fileLocation = GoogleMapBasic::get_js_location();
+				$fileLocation = Config::inst()->get("GoogleMape", "js_location");
 				if(! $fileLocation) {
 					$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
 				}
@@ -130,7 +110,7 @@ class GoogleMapBasic_Controller extends Extension {
 		}
 	}
 
-	function cleanJS($s) {
+	protected function cleanJS($s) {
 		$s = Convert::raw2js($s);
 		$s = str_replace("\r\n", " ", $s);
 		$s = str_replace("\n", " ", $s);
