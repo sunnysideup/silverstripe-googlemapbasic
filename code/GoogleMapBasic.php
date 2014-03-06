@@ -65,7 +65,7 @@ class GoogleMapBasic_Controller extends Extension {
 				return true;
 			}
 			else {
-				$fileLocation = Config::inst()->get("GoogleMape", "js_location");
+				$fileLocation = Config::inst()->get("GoogleMap", "js_location");
 				if(! $fileLocation) {
 					$fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
 				}
