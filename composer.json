@@ -3,7 +3,7 @@
 	"type": "silverstripe-module",
 	"description": "add a basic google map to your Silverstripe pages",
 	"homepage": "http://www.silverstripe-webdevelopment.com",
-	"keywords": ["googlemapbasic", "silverstripe"],
+	"keywords": ["googlemapbasic", "silverstripe", "google map", "map", "google", "location", "marker"],
 	"license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
 	"authors":[
 		{
