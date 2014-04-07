@@ -35,7 +35,7 @@ Installation Instructions
 2. Review configs and add entries to mysite/_config/config.yml
 (or similar) as necessary.
 In the _config/ folder of this module
-you should to find some examples of config options (if any). and create custom js file (if needed)
+you can usually find some examples of config options (if any). and create custom js file (if needed)
 
 3. add <% include GoogleMapBasic %> to your template
 
