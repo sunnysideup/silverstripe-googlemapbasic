@@ -55,11 +55,13 @@ var GoogleMapBasic = {
 			center: GoogleMapBasic.location
 		};
 		GoogleMapBasic.map = new google.maps.Map(document.getElementById('GoogleMapBasic'), GoogleMapBasic.options);
-		GoogleMapBasic.marker = new google.maps.Marker({
-			map: GoogleMapBasic.map,
-			position: GoogleMapBasic.location,
-			title: GoogleMapBasic.title
-		});
+		GoogleMapBasic.marker = new google.maps.Marker(
+			{
+				map: GoogleMapBasic.map,
+				position: GoogleMapBasic.location,
+				title: GoogleMapBasic.title
+			}
+		);
 		GoogleMapBasic.infoWindowObject = new google.maps.InfoWindow({content: GoogleMapBasic.infoWindowContent});
 		google.maps.event.addListener(GoogleMapBasic.marker, 'click', function() {GoogleMapBasic.infoWindowObject.open(GoogleMapBasic.map,GoogleMapBasic.marker);});
 		google.maps.event.trigger(GoogleMapBasic.marker, "click");

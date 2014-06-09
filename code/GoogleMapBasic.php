@@ -59,8 +59,12 @@ class GoogleMapBasic extends SiteTreeExtension {
 
 class GoogleMapBasic_Controller extends Extension {
 
+	public function HasGoogleMap(){
+		return $this->owner->ShowMap && $this->owner->Address;
+	}
+
 	function GoogleMapBasic() {
-		if($this->owner->ShowMap && $this->owner->Address) {
+		if($this->owner->HasGoogleMap()) {
 			if($this->owner->StaticMap) {
 				return true;
 			}
@@ -99,13 +103,13 @@ class GoogleMapBasic_Controller extends Extension {
 	}
 
 	function GoogleMapBasicExternalLink () {
-		if($this->owner->ShowMap && $this->owner->Address) {
+		if($this->owner->HasGoogleMap()) {
 			return Director::protocol() . 'maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
 		}
 	}
 
 	function GoogleMapBasicExternalLinkHTML () {
-		if($this->owner->ShowMap && $this->owner->Address) {
+		if($this->owner->HasGoogleMap()) {
 			return '<p id="GoogleMapBasicExternalLink"><a href="'.$this->GoogleMapBasicExternalLink().'" target="_map">'._t("GoogleMapBasic.OPENINGOOGLEMAPS", "open in Google Maps").'</a></p>';
 		}
 	}
@@ -117,6 +121,7 @@ class GoogleMapBasic_Controller extends Extension {
 		$s = str_replace('/', '\/', $s);
 		return $s;
 	}
+
 
 
 
