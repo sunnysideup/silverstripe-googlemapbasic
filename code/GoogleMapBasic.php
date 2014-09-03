@@ -25,7 +25,11 @@ class GoogleMapBasic extends SiteTreeExtension {
 
 	function updateCMSFields(FieldList $fields) {
 		if($this->canHaveMap()) {
-			$fields->addFieldToTab("Root.Map", new CheckboxField("ShowMap", "Show map (reload to see additional options)"));
+			$reloadMessage = " ";
+			if(!$this->owner->ShowMap) {
+				$reloadMessage = " (save (and publish) to see additional options)";
+			}
+			$fields->addFieldToTab("Root.Map", new CheckboxField("ShowMap", "Show map $reloadMessage"));
 			if($this->owner->ShowMap) {
 				$fields->addFieldToTab("Root.Map", new CheckboxField("StaticMap", "Show map as picture only"));
 				$fields->addFieldToTab("Root.Map", new TextField("Address"));
