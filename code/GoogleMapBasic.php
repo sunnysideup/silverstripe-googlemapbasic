@@ -41,8 +41,8 @@ class GoogleMapBasic extends SiteTreeExtension {
 	}
 
 	protected function canHaveMap() {
-		$include = $this->owner->Config()->get("include_in_classes");
-		$exclude = $this->owner->Config()->get("exclude_from_classes");
+		$include = Config::inst()->get("GoogleMapBasic", "include_in_classes");
+		$exclude = Config::inst()->get("GoogleMapBasic", "exclude_from_classes");
 		if(!is_array($exclude) || !is_array($include)) {
 			user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
 			return true;
