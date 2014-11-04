@@ -1,4 +1,5 @@
-Google Map Basic================================================================================
+Google Map Basic
+=================================================
 
 Adds a google map with one marker to any page of
 your silverstripe website.
