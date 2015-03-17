@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="GoogleMapBasic_Controller" namespace="" name="GoogleMapBasic_Controller" abstract="false" final="false" start="64" end="132">
+  <file path="/var/www/_modules/googlemapbasic/trunk/docs/en/phpdox/../../../code" file="GoogleMapBasic.php" realpath="/var/www/_modules/googlemapbasic/trunk/code/GoogleMapBasic.php" size="4401" time="2015-03-14T10:23:23+13:00" unixtime="1426281803" sha1="a799ae77aa7a1c3ca0887caa8cc8e6c59a31fdb7" relative="code/GoogleMapBasic.php"/>
+  <extends full="Extension" namespace="" name="Extension"/>
+  <method name="HasGoogleMap" start="66" end="68" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="GoogleMapBasic" start="70" end="96" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="GoogleMapBasicStaticMapSource" start="98" end="107" abstract="false" final="false" static="false" visibility="public">
+    <parameter name="width" byreference="false" type="integer" default="512"/>
+    <parameter name="height" byreference="false" type="integer" default="512"/>
+  </method>
+  <method name="GoogleMapBasicExternalLink" start="109" end="113" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="GoogleMapBasicExternalLinkHTML" start="115" end="119" abstract="false" final="false" static="false" visibility="public"/>
+  <method name="cleanJS" start="121" end="127" abstract="false" final="false" static="false" visibility="protected">
+    <parameter name="s" byreference="false" type="{unknown}"/>
+  </method>
+</class>

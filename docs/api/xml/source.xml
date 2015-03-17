@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<source xmlns="http://xml.phpdox.net/src">
+  <dir name="/var/www/_modules/googlemapbasic/trunk">
+    <file name="_config.php" size="120" time="2015-03-14T10:23:23+13:00" unixtime="1426281803" sha1="e727d5a1e37ee2bdd39526457bbf38b9e20085ba" xml="tokens/_config.php.xml"/>
+    <dir name="code">
+      <file name="GoogleMapBasic.php" size="4401" time="2015-03-14T10:23:23+13:00" unixtime="1426281803" sha1="a799ae77aa7a1c3ca0887caa8cc8e6c59a31fdb7" xml="tokens/code/GoogleMapBasic.php.xml"/>
+    </dir>
+  </dir>
+</source>
