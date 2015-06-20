@@ -52,7 +52,8 @@ var GoogleMapBasic = {
 		GoogleMapBasic.options = {
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			zoom: GoogleMapBasic.zoomLevel,
-			center: GoogleMapBasic.location
+			center: GoogleMapBasic.location,
+			scrollwheel: false
 		};
 		GoogleMapBasic.map = new google.maps.Map(document.getElementById('GoogleMapBasic'), GoogleMapBasic.options);
 		GoogleMapBasic.marker = new google.maps.Marker(
