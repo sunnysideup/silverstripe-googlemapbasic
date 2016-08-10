@@ -1,6 +1,9 @@
 GoogleMapBasic:
-  js_location: "mysite/javascript/MyMap.js"
   exclude_from_classes:
     - HomePage
   include_in_classes:
     - ContactUsPage
+GoogleMapBasic_Controller:
+  js_location: "mysite/javascript/MyMap.js"
+  api_key: "please visit Google API Console"
+  id_of_map_div: "MyDiv"

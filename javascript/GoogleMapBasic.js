@@ -2,74 +2,109 @@
 THANK YOU Marcel Nogueira d' Eurydice FOR THE INSPIRATION!
 */
 
+
 jQuery(document).ready(
-	function () {
-		GoogleMapBasic.init();
-	}
-);
+    function(){
+        if(typeof GoogleMapBasicOptions !== "undefined") {
+            for(var i = 0; i < GoogleMapBasicOptions.length; i++) {
+                var options = GoogleMapBasicOptions[i];
+                var map = new GoogleMapBasic(options);
+                for (var key in options) {
+                    if (!options.hasOwnProperty(key)) {
+                        //The current property is not a direct property of p
+                        continue;
+                    }
+                    map.setVar(key, options[key]);
+                    //Do your logic with the property here
+                }
+                map.init();
+            }
+        }
+    }
+)
 
-var GoogleMapBasic = {
+function GoogleMapBasic(options) {
 
-	zoomLevel: 14,
-		SET_zoomLevel: function(v) {GoogleMapBasic.zoomLevel = v;},
+    var mapObject = {
 
-	infoWindowContent: "I live here",
-		SET_infoWindowContent: function(v) {GoogleMapBasic.infoWindowContent = v;},
+        idOfMapDiv: options.idOfMapDiv,
 
-	address: "The Beehive, Wellington, New Zealand",
-		SET_address: function(v) {GoogleMapBasic.address = v;},
+        zoomLevel: options.zoomLevel,
 
-	title: "Click me",
-		SET_title: function(v) {GoogleMapBasic.title = v;},
+        infoWindowContent: options.infoWindowContent,
 
-	map: null,
-	options: null,
-	marker: null,
-	marker: null,
-	infoWindowObject: null,
-	options: null,
-	location: null,
+        address: options.address,
 
-	init: function() {
-		var geocoder;
-		var results;
-		geocoder = new google.maps.Geocoder();
-		geocoder.geocode(
-			{'address': GoogleMapBasic.address},
-			function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					GoogleMapBasic.location = results[0].geometry.location
-					//we have to do this now after the address is found!
-					GoogleMapBasic.createMap();
-				}
-				else {
-					alert("Geocode was not successful for the following reason: " + status);
-				}
-			}
-		);
-	},
-	createMap: function(){
-		GoogleMapBasic.options = {
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			zoom: GoogleMapBasic.zoomLevel,
-			center: GoogleMapBasic.location,
-			scrollwheel: false
-		};
-		GoogleMapBasic.map = new google.maps.Map(document.getElementById('GoogleMapBasic'), GoogleMapBasic.options);
-		GoogleMapBasic.marker = new google.maps.Marker(
-			{
-				map: GoogleMapBasic.map,
-				position: GoogleMapBasic.location,
-				title: GoogleMapBasic.title
-			}
-		);
-		GoogleMapBasic.infoWindowObject = new google.maps.InfoWindow({content: GoogleMapBasic.infoWindowContent});
-		google.maps.event.addListener(GoogleMapBasic.marker, 'click', function() {GoogleMapBasic.infoWindowObject.open(GoogleMapBasic.map,GoogleMapBasic.marker);});
-		google.maps.event.trigger(GoogleMapBasic.marker, "click");
-	}
+        title: options.title,
+
+        map: null,
+
+        mapOptions: null,
+
+        marker: null,
+
+        infoWindowObject: null,
+
+        location: null,
+
+        init: function() {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode(
+                {'address': mapObject.address},
+                function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        mapObject.location = results[0].geometry.location
+                        //we have to do this now after the address is found!
+                        mapObject.createMap();
+                    }
+                    else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                }
+            );
+        },
+
+        createMap: function(){
+            console.debug(mapObject.location);
+            mapObject.mapOptions = {
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoom: mapObject.zoomLevel,
+                center: mapObject.location,
+                scrollwheel: false
+            };
+            mapObject.map = new google.maps.Map(
+                document.getElementById(mapObject.idOfMapDiv),
+                mapObject.mapOptions
+            );
+            mapObject.marker = new google.maps.Marker(
+                {
+                    map: mapObject.map,
+                    position: mapObject.location,
+                    title: mapObject.title
+                }
+            );
+            mapObject.infoWindowObject = new google.maps.InfoWindow({content: mapObject.infoWindowContent});
+            google.maps.event.addListener(mapObject.marker, 'click', function() {mapObject.infoWindowObject.open(mapObject.map,mapObject.marker);});
+            google.maps.event.trigger(mapObject.marker, "click");
+        }
+    }
 
 
-
+        // Expose public API
+    return {
+        getVar: function( variableName ) {
+            if ( mapObject.hasOwnProperty( variableName ) ) {
+                return mapObject[ variableName ];
+            }
+        },
+        setVar: function(variableName, value) {
+            mapObject[variableName] = value;
+            return this;
+        },
+        init: function(){
+            mapObject.init();
+            return this;
+        }
+    }
 
 }
-
