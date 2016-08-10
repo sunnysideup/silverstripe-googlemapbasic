@@ -65,7 +65,6 @@ function GoogleMapBasic(options) {
         },
 
         createMap: function(){
-            console.debug(mapObject.location);
             mapObject.mapOptions = {
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 zoom: mapObject.zoomLevel,
