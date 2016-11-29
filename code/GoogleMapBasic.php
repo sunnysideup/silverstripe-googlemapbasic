@@ -7,8 +7,8 @@
  **/
 
 
-class GoogleMapBasic extends SiteTreeExtension {
-
+class GoogleMapBasic extends SiteTreeExtension
+{
     private static $db = array(
         'ShowMap' => 'Boolean',
         'StaticMap' => 'Boolean',
@@ -22,14 +22,15 @@ class GoogleMapBasic extends SiteTreeExtension {
 
     private static $exclude_from_classes = array();
 
-    function updateCMSFields(FieldList $fields) {
-        if($this->canHaveMap()) {
+    public function updateCMSFields(FieldList $fields)
+    {
+        if ($this->canHaveMap()) {
             $reloadMessage = " ";
-            if(!$this->owner->ShowMap) {
+            if (!$this->owner->ShowMap) {
                 $reloadMessage = " (save (and publish) to see additional options)";
             }
             $fields->addFieldToTab("Root.Map", new CheckboxField("ShowMap", "Show map $reloadMessage"));
-            if($this->owner->ShowMap) {
+            if ($this->owner->ShowMap) {
                 $fields->addFieldToTab("Root.Map", new CheckboxField("StaticMap", "Show map as picture only"));
                 $fields->addFieldToTab("Root.Map", new TextField("Address"));
                 $fields->addFieldToTab("Root.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close)"));
@@ -39,50 +40,49 @@ class GoogleMapBasic extends SiteTreeExtension {
         }
     }
 
-    protected function canHaveMap() {
+    protected function canHaveMap()
+    {
         $include = Config::inst()->get("GoogleMapBasic", "include_in_classes");
         $exclude = Config::inst()->get("GoogleMapBasic", "exclude_from_classes");
-        if(!is_array($exclude) || !is_array($include)) {
+        if (!is_array($exclude) || !is_array($include)) {
             user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
             return true;
         }
-        if(!count($include) && !count($exclude)) {
+        if (!count($include) && !count($exclude)) {
             return true;
         }
-        if(count($include) && in_array($this->owner->ClassName, $include)) {
+        if (count($include) && in_array($this->owner->ClassName, $include)) {
             return true;
         }
-        if(count($exclude) && !in_array($this->owner->ClassName, $exclude)) {
+        if (count($exclude) && !in_array($this->owner->ClassName, $exclude)) {
             return true;
         }
     }
-
-
 }
 
-class GoogleMapBasic_Controller extends Extension {
-
-
+class GoogleMapBasic_Controller extends Extension
+{
     private static $js_location = '';
 
     private static $id_of_map_div = 'GoogleMapBasic';
 
     private static $api_key = '';
 
-    public function HasGoogleMap(){
+    public function HasGoogleMap()
+    {
         return $this->owner->ShowMap && $this->owner->Address;
     }
 
-    function GoogleMapBasic() {
-        if($this->owner->HasGoogleMap()) {
-            if($this->owner->StaticMap) {
+    public function GoogleMapBasic()
+    {
+        if ($this->owner->HasGoogleMap()) {
+            if ($this->owner->StaticMap) {
                 return true;
-            }
-            else {
+            } else {
                 $fileLocation = Config::inst()->get("GoogleMapBasic_Controller", "js_location");
                 $idOfMapDiv = Config::inst()->get("GoogleMapBasic_Controller", "id_of_map_div");
                 $apiKey = Config::inst()->get("GoogleMapBasic_Controller", "api_key");
-                if(! $fileLocation) {
+                if (! $fileLocation) {
                     $fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
                 }
                 Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
@@ -112,7 +112,8 @@ class GoogleMapBasic_Controller extends Extension {
         return false;
     }
 
-    function GoogleMapBasicStaticMapSource($width = 512, $height = 512) {
+    public function GoogleMapBasicStaticMapSource($width = 512, $height = 512)
+    {
         $src = Director::protocol() . 'maps.googleapis.com/maps/api/staticmap?';
         $src .= 'center='.urlencode($this->owner->Address);
         $src .= '&amp;zoom='.$this->owner->ZoomLevel;
@@ -123,27 +124,26 @@ class GoogleMapBasic_Controller extends Extension {
         return $src;
     }
 
-    function GoogleMapBasicExternalLink () {
-        if($this->owner->HasGoogleMap()) {
+    public function GoogleMapBasicExternalLink()
+    {
+        if ($this->owner->HasGoogleMap()) {
             return Director::protocol() . 'maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
         }
     }
 
-    function GoogleMapBasicExternalLinkHTML () {
-        if($this->owner->HasGoogleMap()) {
+    public function GoogleMapBasicExternalLinkHTML()
+    {
+        if ($this->owner->HasGoogleMap()) {
             return '<p id="GoogleMapBasicExternalLink"><a href="'.$this->GoogleMapBasicExternalLink().'" target="_map">'._t("GoogleMapBasic.OPENINGOOGLEMAPS", "open in Google Maps").'</a></p>';
         }
     }
 
-    protected function cleanJS($s) {
+    protected function cleanJS($s)
+    {
         $s = Convert::raw2js($s);
         $s = str_replace("\r\n", " ", $s);
         $s = str_replace("\n", " ", $s);
         $s = str_replace('/', '\/', $s);
         return $s;
     }
-
-
-
-
 }
