@@ -1,8 +1,4 @@
 SiteTree:
-  extensions:
-    - GoogleMapBasic
-
+    extensions: [GoogleMapBasic]
 ContentController:
-  extensions:
-    - GoogleMapBasic_Controller
-
+    extensions: [GoogleMapBasic_Controller]

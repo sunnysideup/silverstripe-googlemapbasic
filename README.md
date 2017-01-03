@@ -1,45 +1,72 @@
-Google Map Basic
-=================================================
+# Silverstripe googlemapbasic module
+[![Build Status](https://travis-ci.org/sunnysideup/silverstripe-googlemapbasic.svg?branch=master)](https://travis-ci.org/sunnysideup/silverstripe-googlemapbasic)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sunnysideup/silverstripe-googlemapbasic/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sunnysideup/silverstripe-googlemapbasic/?branch=master)
+[![codecov.io](https://codecov.io/github/sunnysideup/silverstripe-googlemapbasic/coverage.svg?branch=master)](https://codecov.io/github/sunnysideup/silverstripe-googlemapbasic?branch=master)
+![helpfulrobot](https://helpfulrobot.io/sunnysideup/googlemapbasic/badge)
 
-Adds a google map with one marker to any page of
-your silverstripe website.
-
-This is useful for adding a location of a business
-or the place of an event, etc... etc...
-
-
-Developer
------------------------------------------------
-Nicolaas Francken [at] sunnysideup.co.nz
+[![Latest Stable Version](https://poser.pugx.org/sunnysideup/googlemapbasic/version)](https://packagist.org/packages/sunnysideup/googlemapbasic)
+[![License](https://poser.pugx.org/sunnysideup/googlemapbasic/license)](https://packagist.org/packages/sunnysideup/googlemapbasic)
+[![Monthly Downloads](https://poser.pugx.org/sunnysideup/googlemapbasic/d/monthly)](https://packagist.org/packages/sunnysideup/googlemapbasic)
 
 
-Requirements
------------------------------------------------
-see composer.json
+## Documentation
 
 
-Documentation
------------------------------------------------
-Please contact author for more details.
 
-Any bug reports and/or feature requests will be
-looked at in detail
+ * [Developer Docs](docs/en/INDEX.md)
+ * [User Guide](docs/en/userguide.md)
+ * [API](http://ssmods.com/apis/googlemapbasic/docs/en/api/)
 
-We are also very happy to provide personalised support
-for this module in exchange for a small donation.
+## Requirements
 
 
-Installation Instructions
------------------------------------------------
-1. Find out how to add modules to SS and add module as per usual.
 
-2. Review configs and add entries to mysite/_config/config.yml
-(or similar) as necessary.
-In the _config/ folder of this module
-you can usually find some examples of config options (if any). and create custom js file (if needed)
+see [composer.json](composer.json) for details
 
-3. add <% include GoogleMapBasic %> to your template
+### Suggested Modules
 
-4. go into CMS and add a map to a page type that can have maps (as set in config)
 
-5. review on screen and code CSS for the right look and feel.
+
+see [composer.json](composer.json) for details
+
+
+## Installation
+
+
+```
+composer require sunnysideup/googlemapbasic
+```
+
+### Configuration
+
+
+
+In the `_config` folder you will find the `googlemapbasic.yml.example`
+file that shows options for the configuration of this module.
+
+We recommend that you:
+
+  1. copy these `googlemapbasic.yml.example` files into your
+`mysite/_config` folder
+  2. remove the .example extension
+  3. delete the lines you not care about, and
+  4. adjust the configurations that you would like to use.
+
+
+## Contributing
+
+
+
+We welcome any contributions. See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+## Paid assistance
+
+
+
+You can pay us to create an improved / adapted version of this module for your own projects.  Please contact us if you like to find out more: [www.sunnysideup.co.nz](http://www.sunnysideup.co.nz)
+
+## Author
+
+
+
+Sunny Side Up Ltd.
