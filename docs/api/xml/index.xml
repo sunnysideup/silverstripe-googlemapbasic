@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<index xmlns="http://xml.phpdox.net/src" basedir="/var/www/_modules/googlemapbasic/trunk">
-  <namespace name="">
-    <class name="GoogleMapBasic" src="code/GoogleMapBasic.php" description="author nicolaas[at] sunnysideup.co.nz" xml="classes/GoogleMapBasic.xml"/>
-    <class name="GoogleMapBasic_Controller" src="code/GoogleMapBasic.php" xml="classes/GoogleMapBasic_Controller.xml"/>
-  </namespace>
-</index>
