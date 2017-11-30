@@ -86,7 +86,7 @@ class GoogleMapBasic_Controller extends Extension
                     $fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
                 }
                 Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-                Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?sensor=false&amp;key='.$apiKey);
+                Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'&amp;sensor=false');
                 Requirements::javascript($fileLocation);
                 $infoWindow = '<div class="infoWindowContent typography">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
                 Requirements::customScript("
