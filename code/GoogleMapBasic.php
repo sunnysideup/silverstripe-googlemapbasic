@@ -86,7 +86,7 @@ class GoogleMapBasic_Controller extends Extension
                     $fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
                 }
                 Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-                Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'&amp;sensor=false');
+                Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'');
                 Requirements::javascript($fileLocation);
                 $infoWindow = '<div class="infoWindowContent typography">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
                 Requirements::customScript("
@@ -116,18 +116,18 @@ class GoogleMapBasic_Controller extends Extension
     {
         $src = Director::protocol() . 'maps.googleapis.com/maps/api/staticmap?';
         $src .= 'center='.urlencode($this->owner->Address);
-        $src .= '&amp;zoom='.$this->owner->ZoomLevel;
-        $src .= '&amp;size='.$width.'x'.$height.'';
-        $src .= '&amp;maptype=roadmap';
-        $src .= '&amp;markers=color:red%7C'.urlencode(urlencode($this->owner->Address));
-        $src .= '&amp;sensor=false';
+        $src .= '&zoom='.$this->owner->ZoomLevel;
+        $src .= '&size='.$width.'x'.$height.'';
+        $src .= '&maptype=roadmap';
+        $src .= '&markers=color:red%7C'.urlencode(urlencode($this->owner->Address));
+
         return $src;
     }
 
     public function GoogleMapBasicExternalLink()
     {
         if ($this->owner->HasGoogleMap()) {
-            return Director::protocol() . 'maps.google.com/maps?q='.urlencode($this->owner->Address).'&amp;z='.$this->owner->ZoomLevel;
+            return Director::protocol() . 'maps.google.com/maps?q='.urlencode($this->owner->Address).'&z='.$this->owner->ZoomLevel;
         }
     }
 
