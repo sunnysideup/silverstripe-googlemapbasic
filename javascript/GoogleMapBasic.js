@@ -27,6 +27,7 @@ function GoogleMapBasic(options) {
 
     var mapObject = {
 
+        //to be provided
         idOfMapDiv: options.idOfMapDiv,
 
         zoomLevel: options.zoomLevel,
@@ -35,7 +36,14 @@ function GoogleMapBasic(options) {
 
         address: options.address,
 
+        lat: options.lat,
+
+        lng: options.lng,
+
         title: options.title,
+
+
+        //internal items
 
         map: null,
 
@@ -48,20 +56,25 @@ function GoogleMapBasic(options) {
         location: null,
 
         init: function() {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode(
-                {'address': mapObject.address},
-                function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        mapObject.location = results[0].geometry.location
-                        //we have to do this now after the address is found!
-                        mapObject.createMap();
+            if(mapObject.lat && mapObject.lng) {
+                mapObject.location = {lat: mapObject.lat, lng: mapObject.lng}
+                mapObject.createMap();
+            } else {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode(
+                    {'address': mapObject.address},
+                    function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            mapObject.location = results[0].geometry.location
+                            //we have to do this now after the address is found!
+                            mapObject.createMap();
+                        }
+                        else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
                     }
-                    else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-                }
-            );
+                );
+            }
         },
 
         createMap: function(){

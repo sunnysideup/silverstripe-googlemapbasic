@@ -1,72 +1,12 @@
 <?php
 
-/**
- *@author nicolaas[at] sunnysideup.co.nz
- *
- *
- **/
-
-
-class GoogleMapBasic extends SiteTreeExtension
-{
-    private static $db = array(
-        'ShowMap' => 'Boolean',
-        'StaticMap' => 'Boolean',
-        'Address' => 'Text',
-        'ZoomLevel' => 'Int',
-        'InfoWindowContent' => 'HTMLText'
-    );
-
-
-    private static $include_in_classes = array();
-
-    private static $exclude_from_classes = array();
-
-    public function updateCMSFields(FieldList $fields)
-    {
-        if ($this->canHaveMap()) {
-            $reloadMessage = " ";
-            if (!$this->owner->ShowMap) {
-                $reloadMessage = " (save (and publish) to see additional options)";
-            }
-            $fields->addFieldToTab("Root.Map", new CheckboxField("ShowMap", "Show map $reloadMessage"));
-            if ($this->owner->ShowMap) {
-                $fields->addFieldToTab("Root.Map", new CheckboxField("StaticMap", "Show map as picture only"));
-                $fields->addFieldToTab("Root.Map", new TextField("Address"));
-                $fields->addFieldToTab("Root.Map", new NumericField("ZoomLevel", "Zoom (1 = world, 20 = too close)"));
-                $fields->addFieldToTab("Root.Map", $htmlEditorField = new HtmlEditorField("InfoWindowContent", "Info Window Content"));
-                $htmlEditorField->setRows(5);
-            }
-        }
-    }
-
-    protected function canHaveMap()
-    {
-        $include = Config::inst()->get("GoogleMapBasic", "include_in_classes");
-        $exclude = Config::inst()->get("GoogleMapBasic", "exclude_from_classes");
-        if (!is_array($exclude) || !is_array($include)) {
-            user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
-            return true;
-        }
-        if (!count($include) && !count($exclude)) {
-            return true;
-        }
-        if (count($include) && in_array($this->owner->ClassName, $include)) {
-            return true;
-        }
-        if (count($exclude) && !in_array($this->owner->ClassName, $exclude)) {
-            return true;
-        }
-    }
-}
-
 class GoogleMapBasic_Controller extends Extension
 {
     private static $js_location = '';
 
     private static $id_of_map_div = 'GoogleMapBasic';
 
-    private static $api_key = '';
+    private static $api_key = 'AIzaSyBAhseo8q1m4nIEFYflljQ3lWGZEPXzY30'; //JONAH CHANGED THIS FOR TESTING !!! REMOVE IF UNWANTED
 
     public function HasGoogleMap()
     {
@@ -89,7 +29,8 @@ class GoogleMapBasic_Controller extends Extension
                 Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'');
                 Requirements::javascript($fileLocation);
                 $infoWindow = '<div class="infoWindowContent typography">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
-                Requirements::customScript("
+                Requirements::customScript(
+                    "
                     if(typeof GoogleMapBasicOptions === 'undefined') {
                         var GoogleMapBasicOptions = new Array();
                     }
@@ -99,6 +40,8 @@ class GoogleMapBasic_Controller extends Extension
                             infoWindowContent: \"".$this->cleanJS($infoWindow)."\",
                             title: \"".$this->cleanJS($this->owner->Title)."\",
                             address: \"".$this->cleanJS($this->owner->Address)."\",
+                            lat: ".floatval($this->owner->Lat).",
+                            lng: ".floatval($this->owner->Lng).",
                             zoomLevel: ".intval($this->owner->ZoomLevel)."
                         }
                     );
@@ -114,12 +57,17 @@ class GoogleMapBasic_Controller extends Extension
 
     public function GoogleMapBasicStaticMapSource($width = 512, $height = 512)
     {
+        if ($this->owner->Lat && $this->owner->Lng) {
+            $center = $this->owner->Lat.','.$this->owner->Lng;
+        } else {
+            $center = urlencode($this->owner->Address);
+        }
         $src = Director::protocol() . 'maps.googleapis.com/maps/api/staticmap?';
-        $src .= 'center='.urlencode($this->owner->Address);
+        $src .= 'center='.$center;
         $src .= '&zoom='.$this->owner->ZoomLevel;
         $src .= '&size='.$width.'x'.$height.'';
         $src .= '&maptype=roadmap';
-        $src .= '&markers=color:red%7C'.urlencode(urlencode($this->owner->Address));
+        $src .= '&markers=color:red%7C'.$center;
 
         return $src;
     }
