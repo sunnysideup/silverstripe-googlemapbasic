@@ -57,11 +57,7 @@ class GoogleMapBasic_Controller extends Extension
 
     public function GoogleMapBasicStaticMapSource($width = 512, $height = 512)
     {
-        if ($this->owner->Lat && $this->owner->Lng) {
-            $center = $this->owner->Lat.','.$this->owner->Lng;
-        } else {
-            $center = urlencode($this->owner->Address);
-        }
+        $center = $this->googleMapBasicCenterForLink();
         $src = Director::protocol() . 'maps.googleapis.com/maps/api/staticmap?';
         $src .= 'center='.$center;
         $src .= '&zoom='.$this->owner->ZoomLevel;
@@ -72,10 +68,12 @@ class GoogleMapBasic_Controller extends Extension
         return $src;
     }
 
+
     public function GoogleMapBasicExternalLink()
     {
         if ($this->owner->HasGoogleMap()) {
-            return Director::protocol() . 'maps.google.com/maps?q='.urlencode($this->owner->Address).'&z='.$this->owner->ZoomLevel;
+            $center = $this->googleMapBasicCenterForLink();
+            return Director::protocol() . 'maps.google.com/maps?q='.$center.'&z='.$this->owner->ZoomLevel;
         }
     }
 
@@ -86,6 +84,19 @@ class GoogleMapBasic_Controller extends Extension
         }
     }
 
+    protected function googleMapBasicCenterForLink()
+    {
+        if ($this->owner->Lat && $this->owner->Lng) {
+            $center = $this->owner->Lat.','.$this->owner->Lng;
+        } elseif($this->owner->Address) {
+            $center = urlencode($this->owner->Address);
+        } else {
+            $center = '';
+        }
+
+        return $center;
+    }
+
     protected function cleanJS($s)
     {
         $s = Convert::raw2js($s);
@@ -94,4 +105,6 @@ class GoogleMapBasic_Controller extends Extension
         $s = str_replace('/', '\/', $s);
         return $s;
     }
+
+
 }
