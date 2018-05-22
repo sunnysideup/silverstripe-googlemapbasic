@@ -6,7 +6,7 @@ class GoogleMapBasic_Controller extends Extension
 
     private static $id_of_map_div = 'GoogleMapBasic';
 
-    private static $api_key = 'AIzaSyBAhseo8q1m4nIEFYflljQ3lWGZEPXzY30'; //JONAH CHANGED THIS FOR TESTING !!! REMOVE IF UNWANTED
+    private static $api_key = '';
 
     public function HasGoogleMap()
     {
