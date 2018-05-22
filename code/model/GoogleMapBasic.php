@@ -13,8 +13,8 @@ class GoogleMapBasic extends SiteTreeExtension
         'ShowMap' => 'Boolean',
         'StaticMap' => 'Boolean',
         'Address' => 'Text',
-        'Lat' => 'Decimal(3,12)',
-        'Lng' => 'Decimal(3,12)',
+        'Lat' => 'Decimal(9,9)',
+        'Lng' => 'Decimal(9,9)',
         'ZoomLevel' => 'Int',
         'InfoWindowContent' => 'HTMLText'
     );
