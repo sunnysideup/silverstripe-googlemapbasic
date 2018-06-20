@@ -88,7 +88,7 @@ class GoogleMapBasic_Controller extends Extension
     {
         if ($this->owner->Lat && $this->owner->Lng) {
             $center = $this->owner->Lat.','.$this->owner->Lng;
-        } elseif($this->owner->Address) {
+        } elseif ($this->owner->Address) {
             $center = urlencode($this->owner->Address);
         } else {
             $center = '';
@@ -105,6 +105,4 @@ class GoogleMapBasic_Controller extends Extension
         $s = str_replace('/', '\/', $s);
         return $s;
     }
-
-
 }
