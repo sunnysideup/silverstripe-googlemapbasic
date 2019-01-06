@@ -1,5 +1,14 @@
 <?php
 
+namespace Sunnysideup\GooglemapBasic\Control;
+
+use Extension;
+use Config;
+use Requirements;
+use Director;
+use Convert;
+
+
 
 /**
   * ### @@@@ START REPLACEMENT @@@@ ###

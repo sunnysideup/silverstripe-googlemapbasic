@@ -1,0 +1,3 @@
+mappings:
+  GoogleMapBasic_Controller: Sunnysideup\GooglemapBasic\Control\GoogleMapBasic_Controller
+  GoogleMapBasic: Sunnysideup\GooglemapBasic\Model\GoogleMapBasic

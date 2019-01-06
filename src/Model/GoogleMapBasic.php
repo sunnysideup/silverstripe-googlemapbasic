@@ -1,5 +1,16 @@
 <?php
 
+namespace Sunnysideup\GooglemapBasic\Model;
+
+use SiteTreeExtension;
+use FieldList;
+use CheckboxField;
+use TextField;
+use NumericField;
+use HTMLEditorField;
+use Config;
+
+
 /**
  *@author nicolaas[at] sunnysideup.co.nz
  *
