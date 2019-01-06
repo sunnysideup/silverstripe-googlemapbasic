@@ -2,13 +2,22 @@
 
 namespace Sunnysideup\GooglemapBasic\Model;
 
-use SiteTreeExtension;
-use FieldList;
-use CheckboxField;
-use TextField;
-use NumericField;
-use HTMLEditorField;
-use Config;
+
+
+
+
+
+
+
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
+use SilverStripe\CMS\Model\SiteTreeExtension;
+
 
 
 /**
@@ -63,8 +72,8 @@ class GoogleMapBasic extends SiteTreeExtension
 
     protected function canHaveMap()
     {
-        $include = Config::inst()->get("GoogleMapBasic", "include_in_classes");
-        $exclude = Config::inst()->get("GoogleMapBasic", "exclude_from_classes");
+        $include = Config::inst()->get(GoogleMapBasic::class, "include_in_classes");
+        $exclude = Config::inst()->get(GoogleMapBasic::class, "exclude_from_classes");
         if (!is_array($exclude) || !is_array($include)) {
             user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
             return true;

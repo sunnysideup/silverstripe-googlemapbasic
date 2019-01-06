@@ -2,11 +2,19 @@
 
 namespace Sunnysideup\GooglemapBasic\Control;
 
-use Extension;
-use Config;
-use Requirements;
-use Director;
-use Convert;
+
+
+
+
+
+use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\GooglemapBasic\Control\GoogleMapBasic_Controller;
+use SilverStripe\View\Requirements;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Extension;
+
 
 
 
@@ -22,7 +30,7 @@ class GoogleMapBasic_Controller extends Extension
 {
     private static $js_location = '';
 
-    private static $id_of_map_div = 'GoogleMapBasic';
+    private static $id_of_map_div = GoogleMapBasic::class;
 
     private static $api_key = '';
 
@@ -37,9 +45,9 @@ class GoogleMapBasic_Controller extends Extension
             if ($this->owner->StaticMap) {
                 return true;
             } else {
-                $fileLocation = Config::inst()->get("GoogleMapBasic_Controller", "js_location");
-                $idOfMapDiv = Config::inst()->get("GoogleMapBasic_Controller", "id_of_map_div");
-                $apiKey = Config::inst()->get("GoogleMapBasic_Controller", "api_key");
+                $fileLocation = Config::inst()->get(GoogleMapBasic_Controller::class, "js_location");
+                $idOfMapDiv = Config::inst()->get(GoogleMapBasic_Controller::class, "id_of_map_div");
+                $apiKey = Config::inst()->get(GoogleMapBasic_Controller::class, "api_key");
                 if (! $fileLocation) {
                     $fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
                 }
