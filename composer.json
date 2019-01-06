@@ -1,6 +1,6 @@
 {
     "name": "sunnysideup/googlemapbasic",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "add a basic google map to your Silverstripe pages",
     "keywords": [
         "Silverstripe-CMS",
