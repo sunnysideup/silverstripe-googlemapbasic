@@ -1,5 +1,14 @@
 <?php
 
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: upgrade to SS4
+  * OLD:  extends Extension (ignore case)
+  * NEW:  extends Extension (COMPLEX)
+  * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->owner->ID] or consider turning the class into a trait
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
 class GoogleMapBasic_Controller extends Extension
 {
     private static $js_location = '';
@@ -25,7 +34,7 @@ class GoogleMapBasic_Controller extends Extension
                 if (! $fileLocation) {
                     $fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
                 }
-                Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
+                Requirements::javascript('silverstripe/admin: thirdparty/jquery/jquery.js');
                 Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'');
                 Requirements::javascript($fileLocation);
                 $infoWindow = '<div class="infoWindowContent typography">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';

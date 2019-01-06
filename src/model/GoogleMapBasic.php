@@ -43,7 +43,7 @@ class GoogleMapBasic extends SiteTreeExtension
                             ->setRightTitle('Optional, use in conjunction with Longitude if address is not accurate enough.'),
                         NumericField::create("Lng", "Longitude")
                             ->setRightTitle('Optional, use in conjunction with Latitude if address is not accurate enough.'),
-                        HtmlEditorField::create("InfoWindowContent", "Info Window Content")->setRows(5)
+                        HTMLEditorField::create("InfoWindowContent", "Info Window Content")->setRows(5)
                     ]
                 );
             }
