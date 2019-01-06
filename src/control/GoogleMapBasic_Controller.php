@@ -57,7 +57,7 @@ class GoogleMapBasic_Controller extends Extension
                     ",
                     'GoogleMapBasicData'
                 );
-                Requirements::themedCSS('GoogleMapBasic', "googlemapbasic");
+                Requirements::themedCSS('sunnysideup/googlemapbasic: GoogleMapBasic', "googlemapbasic");
                 return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
             }
         }
