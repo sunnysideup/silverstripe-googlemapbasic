@@ -2,11 +2,6 @@
 
 namespace Sunnysideup\GooglemapBasic\Control;
 
-
-
-
-
-
 use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
 use SilverStripe\Core\Config\Config;
 use Sunnysideup\GooglemapBasic\Control\GoogleMapBasic_Controller;
@@ -14,9 +9,6 @@ use SilverStripe\View\Requirements;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
-
-
-
 
 /**
   * ### @@@@ START REPLACEMENT @@@@ ###

@@ -2,13 +2,6 @@
 
 namespace Sunnysideup\GooglemapBasic\Model;
 
-
-
-
-
-
-
-
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\TextField;
@@ -17,8 +10,6 @@ use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Core\Config\Config;
 use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
 use SilverStripe\CMS\Model\SiteTreeExtension;
-
-
 
 /**
  *@author nicolaas[at] sunnysideup.co.nz
