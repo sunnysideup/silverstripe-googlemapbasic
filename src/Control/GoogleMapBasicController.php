@@ -4,13 +4,13 @@ namespace Sunnysideup\GooglemapBasic\Control;
 
 use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
 use SilverStripe\Core\Config\Config;
-use Sunnysideup\GooglemapBasic\Control\GoogleMapBasic_Controller;
+use Sunnysideup\GooglemapBasic\Control\GoogleMapBasicController;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
 
-class GoogleMapBasic_Controller extends Extension
+class GoogleMapBasicController extends Extension
 {
     private static $js_location = '';
 
@@ -29,11 +29,11 @@ class GoogleMapBasic_Controller extends Extension
             if ($this->owner->StaticMap) {
                 return true;
             } else {
-                $fileLocation = Config::inst()->get(GoogleMapBasic_Controller::class, "js_location");
-                $idOfMapDiv = Config::inst()->get(GoogleMapBasic_Controller::class, "id_of_map_div");
-                $apiKey = Config::inst()->get(GoogleMapBasic_Controller::class, "api_key");
+                $fileLocation = Config::inst()->get(GoogleMapBasicController::class, "js_location");
+                $idOfMapDiv = Config::inst()->get(GoogleMapBasicController::class, "id_of_map_div");
+                $apiKey = Config::inst()->get(GoogleMapBasicController::class, "api_key");
                 if (! $fileLocation) {
-                    $fileLocation = 'googlemapbasic/javascript/GoogleMapBasic.js';
+                    $fileLocation = 'sunnysideup/googlemapbasic: client/javascript/GoogleMapBasic.js';
                 }
                 Requirements::javascript('silverstripe/admin: thirdparty/jquery/jquery.js');
                 Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'');
@@ -58,7 +58,7 @@ class GoogleMapBasic_Controller extends Extension
                     ",
                     'GoogleMapBasicData'
                 );
-                Requirements::themedCSS('sunnysideup/googlemapbasic: GoogleMapBasic', "googlemapbasic");
+                Requirements::themedCSS('client/css/GoogleMapBasic');
                 return _t("GoolgeMapBasic.MAPLOADING", "map loading...");
             }
         }

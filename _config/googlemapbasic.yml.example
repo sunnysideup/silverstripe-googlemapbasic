@@ -1,9 +1,9 @@
-GoogleMapBasic:
+Sunnysideup\GooglemapBasic\Model\GoogleMapBasic:
   exclude_from_classes:
     - HomePage
   include_in_classes:
     - ContactUsPage
-GoogleMapBasic_Controller:
+Sunnysideup\GooglemapBasic\Control\GoogleMapBasicController:
   js_location: "app/javascript/MyMap.js"
   api_key: "please visit Google API Console"
   id_of_map_div: "MyDiv"
