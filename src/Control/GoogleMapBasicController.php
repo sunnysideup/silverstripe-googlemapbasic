@@ -36,7 +36,7 @@ class GoogleMapBasicController extends Extension
                     $fileLocation = 'sunnysideup/googlemapbasic: client/javascript/GoogleMapBasic.js';
                 }
                 Requirements::javascript('silverstripe/admin: thirdparty/jquery/jquery.js');
-                Requirements::javascript(Director::protocol() . 'maps.googleapis.com/maps/api/js?key='.$apiKey .'');
+                Requirements::javascript('//maps.googleapis.com/maps/api/js?key='.$apiKey .'');
                 Requirements::javascript($fileLocation);
                 $infoWindow = '<div class="infoWindowContent typography">'.$this->owner->InfoWindowContent.$this->GoogleMapBasicExternalLinkHTML().'</div>';
                 Requirements::customScript(
@@ -68,8 +68,10 @@ class GoogleMapBasicController extends Extension
     public function GoogleMapBasicStaticMapSource($width = 512, $height = 512)
     {
         $center = $this->googleMapBasicCenterForLink();
-        $src = Director::protocol() . 'maps.googleapis.com/maps/api/staticmap?';
-        $src .= 'center='.$center;
+        $apiKey = Config::inst()->get(GoogleMapBasicController::class, "api_key");
+        $src = '//maps.googleapis.com/maps/api/staticmap?';
+        $src .= 'key='.$apiKey;
+        $src .= '&center='.$center;
         $src .= '&zoom='.$this->owner->ZoomLevel;
         $src .= '&size='.$width.'x'.$height.'';
         $src .= '&maptype=roadmap';
