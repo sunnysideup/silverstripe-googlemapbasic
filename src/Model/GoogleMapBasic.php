@@ -51,9 +51,9 @@ class GoogleMapBasic extends SiteTreeExtension
                         TextField::create("Address"),
                         NumericField::create("ZoomLevel", "Zoom (1 = world, 20 = too close)"),
                         NumericField::create("Lat", "Latitude")
-                            ->setRightTitle('Optional, use in conjunction with Longitude if address is not accurate enough.'),
+                            ->setDescription('Optional, use in conjunction with Longitude if address is not accurate enough.'),
                         NumericField::create("Lng", "Longitude")
-                            ->setRightTitle('Optional, use in conjunction with Latitude if address is not accurate enough.'),
+                            ->setDescription('Optional, use in conjunction with Latitude if address is not accurate enough.'),
                         HTMLEditorField::create("InfoWindowContent", "Info Window Content")->setRows(5)
                     ]
                 );
