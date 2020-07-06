@@ -29,5 +29,10 @@
         "expose": [
             "client"
         ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Sunnysideup\\GooglemapBasic\\": "src/"
+        }
     }
 }
