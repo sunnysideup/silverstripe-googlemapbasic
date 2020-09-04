@@ -39,7 +39,7 @@ class GoogleMapBasicController extends Extension
             Requirements::javascript($fileLocation);
             $infoWindow = '<div class="infoWindowContent typography">' . $this->owner->InfoWindowContent . $this->GoogleMapBasicExternalLinkHTML() . '</div>';
             Requirements::customScript(
-                    "
+                "
                     if(typeof GoogleMapBasicOptions === 'undefined') {
                         var GoogleMapBasicOptions = new Array();
                     }
@@ -55,8 +55,8 @@ class GoogleMapBasicController extends Extension
                         }
                     );
                     ',
-                    'GoogleMapBasicData'
-                );
+                'GoogleMapBasicData'
+            );
             Requirements::themedCSS('client/css/GoogleMapBasic');
             return _t('GoolgeMapBasic.MAPLOADING', 'map loading...');
         }
