@@ -2,14 +2,13 @@
 
 namespace Sunnysideup\GooglemapBasic\Model;
 
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\Forms\NumericField;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use SilverStripe\Core\Config\Config;
-use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
 use SilverStripe\CMS\Model\SiteTreeExtension;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\TextField;
 
 /**
  *@author nicolaas[at] sunnysideup.co.nz
@@ -20,41 +19,40 @@ use SilverStripe\CMS\Model\SiteTreeExtension;
 
 class GoogleMapBasic extends SiteTreeExtension
 {
-    private static $db = array(
+    private static $db = [
         'ShowMap' => 'Boolean',
         'StaticMap' => 'Boolean',
         'Address' => 'Text',
         'Lat' => 'Decimal(12,9)',
         'Lng' => 'Decimal(12,9)',
         'ZoomLevel' => 'Int',
-        'InfoWindowContent' => 'HTMLText'
-    );
+        'InfoWindowContent' => 'HTMLText',
+    ];
 
+    private static $include_in_classes = [];
 
-    private static $include_in_classes = array();
-
-    private static $exclude_from_classes = array();
+    private static $exclude_from_classes = [];
 
     public function updateCMSFields(FieldList $fields)
     {
         if ($this->canHaveMap()) {
-            $reloadMessage = " ";
-            if (!$this->owner->ShowMap) {
-                $reloadMessage = " (save (and publish) to see additional options)";
+            $reloadMessage = ' ';
+            if (! $this->owner->ShowMap) {
+                $reloadMessage = ' (save (and publish) to see additional options)';
             }
-            $fields->addFieldToTab("Root.Map", new CheckboxField("ShowMap", "Show map $reloadMessage"));
+            $fields->addFieldToTab('Root.Map', new CheckboxField('ShowMap', "Show map ${reloadMessage}"));
             if ($this->owner->ShowMap) {
                 $fields->addFieldsToTab(
-                    "Root.Map",
+                    'Root.Map',
                     [
-                        CheckboxField::create("StaticMap", "Show map as picture only"),
-                        TextField::create("Address"),
-                        NumericField::create("ZoomLevel", "Zoom (1 = world, 20 = too close)"),
-                        NumericField::create("Lat", "Latitude")
+                        CheckboxField::create('StaticMap', 'Show map as picture only'),
+                        TextField::create('Address'),
+                        NumericField::create('ZoomLevel', 'Zoom (1 = world, 20 = too close)'),
+                        NumericField::create('Lat', 'Latitude')
                             ->setDescription('Optional, use in conjunction with Longitude if address is not accurate enough.'),
-                        NumericField::create("Lng", "Longitude")
+                        NumericField::create('Lng', 'Longitude')
                             ->setDescription('Optional, use in conjunction with Latitude if address is not accurate enough.'),
-                        HTMLEditorField::create("InfoWindowContent", "Info Window Content")->setRows(5)
+                        HTMLEditorField::create('InfoWindowContent', 'Info Window Content')->setRows(5),
                     ]
                 );
             }
@@ -63,19 +61,19 @@ class GoogleMapBasic extends SiteTreeExtension
 
     protected function canHaveMap()
     {
-        $include = Config::inst()->get(GoogleMapBasic::class, "include_in_classes");
-        $exclude = Config::inst()->get(GoogleMapBasic::class, "exclude_from_classes");
-        if (!is_array($exclude) || !is_array($include)) {
-            user_error("include or exclude classes is NOT an array", E_USER_NOTICE);
+        $include = Config::inst()->get(GoogleMapBasic::class, 'include_in_classes');
+        $exclude = Config::inst()->get(GoogleMapBasic::class, 'exclude_from_classes');
+        if (! is_array($exclude) || ! is_array($include)) {
+            user_error('include or exclude classes is NOT an array', E_USER_NOTICE);
             return true;
         }
-        if (!count($include) && !count($exclude)) {
+        if (! count($include) && ! count($exclude)) {
             return true;
         }
-        if (count($include) && in_array($this->owner->ClassName, $include)) {
+        if (count($include) && in_array($this->owner->ClassName, $include, true)) {
             return true;
         }
-        if (count($exclude) && !in_array($this->owner->ClassName, $exclude)) {
+        if (count($exclude) && ! in_array($this->owner->ClassName, $exclude, true)) {
             return true;
         }
     }
