@@ -57,7 +57,7 @@ class GoogleMapBasicController extends Extension
                     ',
                 'GoogleMapBasicData'
             );
-            Requirements::themedCSS('GoogleMapBasic');
+            Requirements::themedCSS('client/css/GoogleMapBasic');
             return _t('GoolgeMapBasic.MAPLOADING', 'map loading...');
         }
         return false;
