@@ -12,11 +12,7 @@ use SilverStripe\Forms\TextField;
 
 /**
  *@author nicolaas[at] sunnysideup.co.nz
- *
- *
- **/
-
-
+ */
 class GoogleMapBasic extends SiteTreeExtension
 {
     private static $db = [
@@ -40,7 +36,7 @@ class GoogleMapBasic extends SiteTreeExtension
             if (! $this->owner->ShowMap) {
                 $reloadMessage = ' (save (and publish) to see additional options)';
             }
-            $fields->addFieldToTab('Root.Map', new CheckboxField('ShowMap', "Show map ${reloadMessage}"));
+            $fields->addFieldToTab('Root.Map', new CheckboxField('ShowMap', "Show map {$reloadMessage}"));
             if ($this->owner->ShowMap) {
                 $fields->addFieldsToTab(
                     'Root.Map',
@@ -65,6 +61,7 @@ class GoogleMapBasic extends SiteTreeExtension
         $exclude = Config::inst()->get(GoogleMapBasic::class, 'exclude_from_classes');
         if (! is_array($exclude) || ! is_array($include)) {
             user_error('include or exclude classes is NOT an array', E_USER_NOTICE);
+
             return true;
         }
         if (! count($include) && ! count($exclude)) {

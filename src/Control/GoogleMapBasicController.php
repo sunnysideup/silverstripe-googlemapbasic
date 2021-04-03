@@ -58,8 +58,10 @@ class GoogleMapBasicController extends Extension
                 'GoogleMapBasicData'
             );
             Requirements::themedCSS('client/css/GoogleMapBasic');
+
             return _t('GoolgeMapBasic.MAPLOADING', 'map loading...');
         }
+
         return false;
     }
 
@@ -82,6 +84,7 @@ class GoogleMapBasicController extends Extension
     {
         if ($this->owner->HasGoogleMap()) {
             $center = $this->googleMapBasicCenterForLink();
+
             return Director::protocol() . 'maps.google.com/maps?q=' . $center . '&z=' . $this->owner->ZoomLevel;
         }
     }
@@ -106,11 +109,12 @@ class GoogleMapBasicController extends Extension
         return $center;
     }
 
-    protected function cleanJS($s)
+    protected function cleanJS(string $s) : string
     {
         $s = Convert::raw2js($s);
         $s = str_replace("\r\n", ' ', $s);
         $s = str_replace("\n", ' ', $s);
+
         return str_replace('/', '\/', $s);
     }
 }
