@@ -109,7 +109,7 @@ class GoogleMapBasicController extends Extension
         return $center;
     }
 
-    protected function cleanJS(string $s) : string
+    protected function cleanJS(string $s): string
     {
         $s = Convert::raw2js($s);
         $s = str_replace("\r\n", ' ', $s);
