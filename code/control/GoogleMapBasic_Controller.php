@@ -86,14 +86,14 @@ class GoogleMapBasic_Controller extends Extension
 
     protected function googleMapBasicCenterForLink()
     {
-        if ($this->owner->Lat && $this->owner->Lng) {
+        
+        if (floatval($this->owner->Lat) && floatval($this->owner->Lng)) {
             $center = $this->owner->Lat.','.$this->owner->Lng;
         } elseif ($this->owner->Address) {
             $center = urlencode($this->owner->Address);
         } else {
             $center = '';
         }
-
         return $center;
     }
 
