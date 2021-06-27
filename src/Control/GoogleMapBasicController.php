@@ -31,7 +31,7 @@ class GoogleMapBasicController extends Extension
             $fileLocation = Config::inst()->get(GoogleMapBasicController::class, 'js_location');
             $idOfMapDiv = Config::inst()->get(GoogleMapBasicController::class, 'id_of_map_div');
             $apiKey = Config::inst()->get(GoogleMapBasicController::class, 'api_key');
-            if (!$fileLocation) {
+            if (! $fileLocation) {
                 $fileLocation = 'sunnysideup/googlemapbasic: client/javascript/GoogleMapBasic.js';
             }
             Requirements::javascript('silverstripe/admin: thirdparty/jquery/jquery.js');
