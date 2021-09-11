@@ -7,7 +7,6 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
 use SilverStripe\View\Requirements;
-use Sunnysideup\GooglemapBasic\Model\GoogleMapBasic;
 
 class GoogleMapBasicController extends Extension
 {
