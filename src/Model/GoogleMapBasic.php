@@ -33,11 +33,11 @@ class GoogleMapBasic extends SiteTreeExtension
     {
         if ($this->canHaveMap()) {
             $reloadMessage = ' ';
-            if (! $this->owner->ShowMap) {
+            if (! $this->getOwner()->ShowMap) {
                 $reloadMessage = ' (save (and publish) to see additional options)';
             }
             $fields->addFieldToTab('Root.Map', new CheckboxField('ShowMap', "Show map {$reloadMessage}"));
-            if ($this->owner->ShowMap) {
+            if ($this->getOwner()->ShowMap) {
                 $fields->addFieldsToTab(
                     'Root.Map',
                     [
@@ -67,10 +67,10 @@ class GoogleMapBasic extends SiteTreeExtension
         if (! count($include) && ! count($exclude)) {
             return true;
         }
-        if (count($include) && in_array($this->owner->ClassName, $include, true)) {
+        if (count($include) && in_array($this->getOwner()->ClassName, $include, true)) {
             return true;
         }
-        if (count($exclude) && ! in_array($this->owner->ClassName, $exclude, true)) {
+        if (count($exclude) && ! in_array($this->getOwner()->ClassName, $exclude, true)) {
             return true;
         }
     }

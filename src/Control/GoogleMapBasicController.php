@@ -18,13 +18,13 @@ class GoogleMapBasicController extends Extension
 
     public function HasGoogleMap()
     {
-        return $this->owner->ShowMap && $this->owner->Address;
+        return $this->getOwner()->ShowMap && $this->getOwner()->Address;
     }
 
     public function GoogleMapBasic()
     {
-        if ($this->owner->HasGoogleMap()) {
-            if ($this->owner->StaticMap) {
+        if ($this->getOwner()->HasGoogleMap()) {
+            if ($this->getOwner()->StaticMap) {
                 return true;
             }
             $fileLocation = Config::inst()->get(GoogleMapBasicController::class, 'js_location');
@@ -36,7 +36,7 @@ class GoogleMapBasicController extends Extension
             Requirements::javascript('silverstripe/admin: thirdparty/jquery/jquery.js');
             Requirements::javascript('//maps.googleapis.com/maps/api/js?key=' . $apiKey . '');
             Requirements::javascript($fileLocation);
-            $infoWindow = '<div class="infoWindowContent typography">' . $this->owner->InfoWindowContent . $this->GoogleMapBasicExternalLinkHTML() . '</div>';
+            $infoWindow = '<div class="infoWindowContent typography">' . $this->getOwner()->InfoWindowContent . $this->GoogleMapBasicExternalLinkHTML() . '</div>';
             Requirements::customScript(
                 "
                     if(typeof GoogleMapBasicOptions === 'undefined') {
@@ -46,11 +46,11 @@ class GoogleMapBasicController extends Extension
                         {
                             idOfMapDiv: \"" . $this->cleanJS($idOfMapDiv) . '",
                             infoWindowContent: "' . $this->cleanJS($infoWindow) . '",
-                            title: "' . $this->cleanJS($this->owner->Title) . '",
-                            address: "' . $this->cleanJS($this->owner->Address) . '",
-                            lat: ' . floatval($this->owner->Lat) . ',
-                            lng: ' . floatval($this->owner->Lng) . ',
-                            zoomLevel: ' . intval($this->owner->ZoomLevel) . '
+                            title: "' . $this->cleanJS($this->getOwner()->Title) . '",
+                            address: "' . $this->cleanJS($this->getOwner()->Address) . '",
+                            lat: ' . floatval($this->getOwner()->Lat) . ',
+                            lng: ' . floatval($this->getOwner()->Lng) . ',
+                            zoomLevel: ' . intval($this->getOwner()->ZoomLevel) . '
                         }
                     );
                     ',
@@ -71,7 +71,7 @@ class GoogleMapBasicController extends Extension
         $src = '//maps.googleapis.com/maps/api/staticmap?';
         $src .= 'key=' . $apiKey;
         $src .= '&center=' . $center;
-        $src .= '&zoom=' . $this->owner->ZoomLevel;
+        $src .= '&zoom=' . $this->getOwner()->ZoomLevel;
         $src .= '&size=' . $width . 'x' . $height . '';
         $src .= '&maptype=roadmap';
         $src .= '&markers=color:red%7C' . $center;
@@ -81,26 +81,26 @@ class GoogleMapBasicController extends Extension
 
     public function GoogleMapBasicExternalLink()
     {
-        if ($this->owner->HasGoogleMap()) {
+        if ($this->getOwner()->HasGoogleMap()) {
             $center = $this->googleMapBasicCenterForLink();
 
-            return Director::protocol() . 'maps.google.com/maps?q=' . $center . '&z=' . $this->owner->ZoomLevel;
+            return Director::protocol() . 'maps.google.com/maps?q=' . $center . '&z=' . $this->getOwner()->ZoomLevel;
         }
     }
 
     public function GoogleMapBasicExternalLinkHTML()
     {
-        if ($this->owner->HasGoogleMap()) {
+        if ($this->getOwner()->HasGoogleMap()) {
             return '<p id="GoogleMapBasicExternalLink"><a href="' . $this->GoogleMapBasicExternalLink() . '" target="_map">' . _t('GoogleMapBasic.OPENINGOOGLEMAPS', 'open in Google Maps') . '</a></p>';
         }
     }
 
     protected function googleMapBasicCenterForLink()
     {
-        if ($this->owner->Lat && $this->owner->Lng) {
-            $center = $this->owner->Lat . ',' . $this->owner->Lng;
-        } elseif ($this->owner->Address) {
-            $center = urlencode($this->owner->Address);
+        if ($this->getOwner()->Lat && $this->getOwner()->Lng) {
+            $center = $this->getOwner()->Lat . ',' . $this->getOwner()->Lng;
+        } elseif ($this->getOwner()->Address) {
+            $center = urlencode($this->getOwner()->Address);
         } else {
             $center = '';
         }
