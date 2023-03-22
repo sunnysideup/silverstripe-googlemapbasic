@@ -30,11 +30,10 @@ class GoogleMapBasicController extends Extension
             $fileLocation = Config::inst()->get(GoogleMapBasicController::class, 'js_location');
             $idOfMapDiv = Config::inst()->get(GoogleMapBasicController::class, 'id_of_map_div');
             $apiKey = Config::inst()->get(GoogleMapBasicController::class, 'api_key');
-            if (! $fileLocation) {
+            if (!$fileLocation) {
                 $fileLocation = 'sunnysideup/googlemapbasic: client/javascript/GoogleMapBasic.js';
             }
-            Requirements::javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js');
-            Requirements::javascript('//maps.googleapis.com/maps/api/js?key=' . $apiKey . '');
+            Requirements::javascript('//maps.googleapis.com/maps/api/js?key=' . $apiKey . 'callback=kickstartGoogleMaps');
             Requirements::javascript($fileLocation);
             $infoWindow = '<div class="infoWindowContent typography">' . $this->getOwner()->InfoWindowContent . $this->GoogleMapBasicExternalLinkHTML() . '</div>';
             Requirements::customScript(
