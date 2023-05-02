@@ -11,7 +11,15 @@ use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
 
 /**
- *@author nicolaas[at] sunnysideup.co.nz
+ * Class \Sunnysideup\GooglemapBasic\Model\GoogleMapBasic
+ *
+ * @property bool $ShowMap
+ * @property bool $StaticMap
+ * @property string $Address
+ * @property float $Lat
+ * @property float $Lng
+ * @property int $ZoomLevel
+ * @property string $InfoWindowContent
  */
 class GoogleMapBasic extends SiteTreeExtension
 {

@@ -8,6 +8,10 @@ use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
 use SilverStripe\View\Requirements;
 
+/**
+ * Class \Sunnysideup\GooglemapBasic\Control\GoogleMapBasicController
+ *
+ */
 class GoogleMapBasicController extends Extension
 {
     private static $js_location = '';
