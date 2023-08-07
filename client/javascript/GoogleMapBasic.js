@@ -3,11 +3,8 @@ THANK YOU Marcel Nogueira d' Eurydice FOR THE INSPIRATION!
 */
 
 window.kickstartGoogleMaps = () => {
-  console.log("A");
   if (typeof window.GoogleMapBasicOptions !== 'undefined') {
-    console.log("B");
     for (let i = 0; i < window.GoogleMapBasicOptions.length; i++) {
-      console.log("C");
       let options = window.GoogleMapBasicOptions[i]
       var map = new GoogleMapBasic(options)
       for (let key in options) {
