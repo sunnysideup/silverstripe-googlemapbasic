@@ -37,8 +37,8 @@ class GoogleMapBasicController extends Extension
             if (!$fileLocation) {
                 $fileLocation = 'sunnysideup/googlemapbasic: client/javascript/GoogleMapBasic.js';
             }
-            Requirements::javascript('//maps.googleapis.com/maps/api/js?key=' . $apiKey . '&callback=kickstartGoogleMaps');
             Requirements::javascript($fileLocation);
+            Requirements::javascript('https://maps.googleapis.com/maps/api/js?key=' . $apiKey . '&callback=kickstartGoogleMaps');
             $infoWindow = '<div class="infoWindowContent typography">' . $this->getOwner()->InfoWindowContent . $this->GoogleMapBasicExternalLinkHTML() . '</div>';
             Requirements::customScript(
                 "
