@@ -2,7 +2,7 @@
 <div id="GoogleMapBasic">
     <% if StaticMap %>
     <a href="$GoogleMapBasicExternalLink">
-        <img src="$GoogleMapBasicStaticMapSource(300,400)" alt="$Address.ATT" width="300" height="400" />
+        <img loading="lazy" src="$GoogleMapBasicStaticMapSource(300,400)" alt="$Address.ATT" width="300" height="400" />
     </a>
     <div class="staticInfoWindowContent">$InfoWindowContent</div>
     <% else %>
