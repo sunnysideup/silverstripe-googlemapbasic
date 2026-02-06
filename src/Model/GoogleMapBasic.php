@@ -83,5 +83,6 @@ class GoogleMapBasic extends SiteTreeExtension
         if (count($exclude) && ! in_array($this->getOwner()->ClassName, $exclude, true)) {
             return true;
         }
+        return null;
     }
 }

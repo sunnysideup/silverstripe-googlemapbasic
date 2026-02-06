@@ -80,9 +80,8 @@ class GoogleMapBasicController extends Extension
         $src .= '&zoom=' . $this->getOwner()->ZoomLevel;
         $src .= '&size=' . $width . 'x' . $height . '';
         $src .= '&maptype=roadmap';
-        $src .= '&markers=color:red%7C' . $center;
 
-        return $src;
+        return $src . ('&markers=color:red%7C' . $center);
     }
 
     public function GoogleMapBasicExternalLink()
@@ -92,6 +91,7 @@ class GoogleMapBasicController extends Extension
 
             return Director::protocol() . 'maps.google.com/maps?q=' . $center . '&z=' . $this->getOwner()->ZoomLevel;
         }
+        return null;
     }
 
     public function GoogleMapBasicExternalLinkHTML()
@@ -99,6 +99,7 @@ class GoogleMapBasicController extends Extension
         if ($this->getOwner()->HasGoogleMap()) {
             return '<p id="GoogleMapBasicExternalLink"><a href="' . $this->GoogleMapBasicExternalLink() . '" target="_map">' . _t('GoogleMapBasic.OPENINGOOGLEMAPS', 'open in Google Maps') . '</a></p>';
         }
+        return null;
     }
 
     protected function googleMapBasicCenterForLink()
