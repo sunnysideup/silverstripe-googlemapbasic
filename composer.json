@@ -1,37 +1,37 @@
 {
-    "name": "sunnysideup/googlemapbasic",
-    "type": "silverstripe-vendormodule",
-    "description": "add a basic google map to your Silverstripe pages",
-    "keywords": [
-        "Silverstripe-CMS",
-        "CMS",
-        "Silverstripe",
-        "googlemapbasic",
-        "google map",
-        "map",
-        "google",
-        "location",
-        "marker"
-    ],
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Nicolaas Francken",
-            "email": "modules@sunnysideup.co.nz",
-            "role": "lead developer"
-        }
-    ],
-    "require": {
-        "silverstripe/recipe-cms": "^4.0 || ^5.0"
-    },
-    "extra": {
-        "expose": [
-            "client"
-        ]
-    },
-    "autoload": {
-        "psr-4": {
-            "Sunnysideup\\GooglemapBasic\\": "src/"
-        }
+  "name": "sunnysideup/googlemapbasic",
+  "type": "silverstripe-vendormodule",
+  "description": "add a basic google map to your Silverstripe pages",
+  "keywords": [
+    "Silverstripe-CMS",
+    "CMS",
+    "Silverstripe",
+    "googlemapbasic",
+    "google map",
+    "map",
+    "google",
+    "location",
+    "marker"
+  ],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Nicolaas Francken",
+      "email": "modules@sunnysideup.co.nz",
+      "role": "lead developer"
     }
+  ],
+  "require": {
+    "silverstripe/recipe-cms": "^4.0 || ^5.0"
+  },
+  "extra": {
+    "expose": [
+      "client"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Sunnysideup\\GooglemapBasic\\": "src/"
+    }
+  }
 }
