@@ -30,12 +30,14 @@ class GoogleMapBasicController extends Extension
             if ($this->getOwner()->StaticMap) {
                 return true;
             }
+
             $fileLocation = Config::inst()->get(GoogleMapBasicController::class, 'js_location');
             $idOfMapDiv = Config::inst()->get(GoogleMapBasicController::class, 'id_of_map_div');
             $apiKey = Config::inst()->get(GoogleMapBasicController::class, 'api_key');
             if (! $fileLocation) {
                 $fileLocation = 'sunnysideup/googlemapbasic: client/javascript/GoogleMapBasic.js';
             }
+
             Requirements::javascript($fileLocation);
             Requirements::javascript(
                 'https://maps.googleapis.com/maps/api/js?key=' . $apiKey . '&loading=async&callback=kickstartGoogleMaps',
@@ -90,6 +92,7 @@ class GoogleMapBasicController extends Extension
 
             return Director::protocol() . 'maps.google.com/maps?q=' . $center . '&z=' . $this->getOwner()->ZoomLevel;
         }
+
         return null;
     }
 
@@ -98,6 +101,7 @@ class GoogleMapBasicController extends Extension
         if ($this->getOwner()->HasGoogleMap()) {
             return '<p id="GoogleMapBasicExternalLink"><a href="' . $this->GoogleMapBasicExternalLink() . '" target="_map">' . _t('GoogleMapBasic.OPENINGOOGLEMAPS', 'open in Google Maps') . '</a></p>';
         }
+
         return null;
     }
 
@@ -106,7 +110,7 @@ class GoogleMapBasicController extends Extension
         if ($this->getOwner()->Lat && $this->getOwner()->Lng) {
             $center = $this->getOwner()->Lat . ',' . $this->getOwner()->Lng;
         } elseif ($this->getOwner()->Address) {
-            $center = urlencode($this->getOwner()->Address);
+            $center = urlencode((string) $this->getOwner()->Address);
         } else {
             $center = '';
         }
