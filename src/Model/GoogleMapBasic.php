@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sunnysideup\GooglemapBasic\Model;
 
-use SilverStripe\CMS\Model\SiteTreeExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
@@ -21,7 +23,7 @@ use SilverStripe\Forms\TextField;
  * @property int $ZoomLevel
  * @property string $InfoWindowContent
  */
-class GoogleMapBasic extends SiteTreeExtension
+class GoogleMapBasic extends Extension
 {
     private static $db = [
         'ShowMap' => 'Boolean',
@@ -44,7 +46,8 @@ class GoogleMapBasic extends SiteTreeExtension
             if (! $this->getOwner()->ShowMap) {
                 $reloadMessage = ' (save (and publish) to see additional options)';
             }
-            $fields->addFieldToTab('Root.Map', new CheckboxField('ShowMap', "Show map {$reloadMessage}"));
+
+            $fields->addFieldToTab('Root.Map', CheckboxField::create('ShowMap', 'Show map ' . $reloadMessage));
             if ($this->getOwner()->ShowMap) {
                 $fields->addFieldsToTab(
                     'Root.Map',
@@ -74,15 +77,19 @@ class GoogleMapBasic extends SiteTreeExtension
 
             return true;
         }
-        if (! count($include) && ! count($exclude)) {
+
+        if ($include === [] && $exclude === []) {
             return true;
         }
+
         if (count($include) && in_array($this->getOwner()->ClassName, $include, true)) {
             return true;
         }
+
         if (count($exclude) && ! in_array($this->getOwner()->ClassName, $exclude, true)) {
             return true;
         }
+
         return null;
     }
 }
