@@ -66,6 +66,15 @@ class GoogleMapBasic extends Extension
                 );
             }
         }
+        else {
+            $fields->removeByName('ShowMap');
+            $fields->removeByName('StaticMap');
+            $fields->removeByName('Address');
+            $fields->removeByName('ZoomLevel');
+            $fields->removeByName('Lat');
+            $fields->removeByName('Lng');
+            $fields->removeByName('InfoWindowContent');
+        }
     }
 
     protected function canHaveMap()
@@ -74,22 +83,21 @@ class GoogleMapBasic extends Extension
         $exclude = Config::inst()->get(GoogleMapBasic::class, 'exclude_from_classes');
         if (! is_array($exclude) || ! is_array($include)) {
             user_error('include or exclude classes is NOT an array', E_USER_NOTICE);
-
             return true;
         }
-
+        
         if ($include === [] && $exclude === []) {
             return true;
         }
-
+        
         if (count($include) && in_array($this->getOwner()->ClassName, $include, true)) {
             return true;
         }
-
+        
         if (count($exclude) && ! in_array($this->getOwner()->ClassName, $exclude, true)) {
             return true;
         }
-
-        return null;
+        
+        return false;
     }
 }
