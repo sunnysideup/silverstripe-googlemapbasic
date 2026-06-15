@@ -26,7 +26,8 @@ class GoogleMapBasicController extends Extension
 
     public function GoogleMapBasic()
     {
-        if ($this->getOwner()->HasGoogleMap()) {
+        die('xxx');
+        if ($this->getOwner()->HasGoogleMap() || 1 === 2) {
             if ($this->getOwner()->StaticMap) {
                 return true;
             }

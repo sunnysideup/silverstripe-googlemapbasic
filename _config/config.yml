@@ -2,8 +2,9 @@
 name: GoogleMapBasic
 ---
 SilverStripe\CMS\Model\SiteTree:
-    extensions:
-        - Sunnysideup\GooglemapBasic\Model\GoogleMapBasic
-PageController:
-    extensions:
-        - Sunnysideup\GooglemapBasic\Control\GoogleMapBasicController
+  extensions:
+    - Sunnysideup\GooglemapBasic\Model\GoogleMapBasic
+
+SilverStripe\CMS\Controllers\ContentController:
+  extensions:
+    - Sunnysideup\GooglemapBasic\Control\GoogleMapBasicController
