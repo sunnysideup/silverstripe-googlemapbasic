@@ -3,26 +3,27 @@ THANK YOU Marcel Nogueira d' Eurydice FOR THE INSPIRATION!
 */
 
 window.kickstartGoogleMaps = () => {
-  if (typeof window.GoogleMapBasicOptions !== 'undefined') {
-    for (let i = 0; i < window.GoogleMapBasicOptions.length; i++) {
-      let options = window.GoogleMapBasicOptions[i]
-      var map = new GoogleMapBasic(options)
-      for (let key in options) {
-        if (!options.hasOwnProperty(key)) {
-          // The current property is not a direct property of p
-          continue
+  window.setTimeout(() => {
+    if (typeof window.GoogleMapBasicOptions !== 'undefined') {
+      for (let i = 0; i < window.GoogleMapBasicOptions.length; i++) {
+        let options = window.GoogleMapBasicOptions[i]
+        var map = new GoogleMapBasic(options)
+        for (let key in options) {
+          if (!options.hasOwnProperty(key)) {
+            // The current property is not a direct property of p
+            continue
+          }
+          map.setVar(key, options[key])
+          //Do your logic with the property here
         }
-        map.setVar(key, options[key])
-        //Do your logic with the property here
+        map.init()
       }
-      map.init()
     }
-  }
+  }, 1000)
 }
 
 function GoogleMapBasic (options) {
   var mapObject = {
-
     // to be provided
     idOfMapDiv: options.idOfMapDiv,
 
@@ -64,7 +65,9 @@ function GoogleMapBasic (options) {
               // we have to do this now after the address is found!
               mapObject.createMap()
             } else {
-              alert('Geocode was not successful for the following reason: ' + status)
+              alert(
+                'Geocode was not successful for the following reason: ' + status
+              )
             }
           }
         )
@@ -82,15 +85,17 @@ function GoogleMapBasic (options) {
         document.getElementById(mapObject.idOfMapDiv),
         mapObject.mapOptions
       )
-      mapObject.marker = new google.maps.Marker(
-        {
-          map: mapObject.map,
-          position: mapObject.location,
-          title: mapObject.title
-        }
-      )
-      mapObject.infoWindowObject = new google.maps.InfoWindow({ content: mapObject.infoWindowContent })
-      google.maps.event.addListener(mapObject.marker, 'click', function () { mapObject.infoWindowObject.open(mapObject.map, mapObject.marker) })
+      mapObject.marker = new google.maps.Marker({
+        map: mapObject.map,
+        position: mapObject.location,
+        title: mapObject.title
+      })
+      mapObject.infoWindowObject = new google.maps.InfoWindow({
+        content: mapObject.infoWindowContent
+      })
+      google.maps.event.addListener(mapObject.marker, 'click', function () {
+        mapObject.infoWindowObject.open(mapObject.map, mapObject.marker)
+      })
       google.maps.event.trigger(mapObject.marker, 'click')
     }
   }
